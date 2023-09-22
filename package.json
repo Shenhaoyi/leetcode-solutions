@@ -1,12 +1,16 @@
 {
-  "name": "my leetcode",
+  "name": "my-leetcode",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc --watch"
+    "test": "tsc --watch",
+    "vitest": "vitest --run"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^0.34.5"
+  }
 }
