@@ -7,9 +7,10 @@
  */
 export const swap = (array: unknown[], i: number, j: number): void => {
   if (i === j || i < 0 || j < 0) return;
-  const temp = array[i];
-  array[i] = array[j];
-  array[j] = temp;
+  // const temp = array[i];
+  // array[i] = array[j];
+  // array[j] = temp;
+  [array[i], array[j]] = [array[j], array[i]]; // 使用解构赋值
 };
 
 /**
@@ -20,7 +21,7 @@ export const swap = (array: unknown[], i: number, j: number): void => {
  * @return {*}
  */
 export const partition = (nums: number[], left: number, right: number): number => {
-  if (left === right) left;
+  if (left === right) return left;
   let i = left;
   let j = right;
   const base = nums[right]; // 以最右边的元素为基数
