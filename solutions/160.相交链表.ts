@@ -39,16 +39,8 @@ function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): Li
       result = currA;
       break;
     }
-    if (currA === null) {
-      currA = headB;
-    } else {
-      currA = currA.next;
-    }
-    if (currB === null) {
-      currB = headA;
-    } else {
-      currB = currB.next;
-    }
+    currA = currA === null ? headB : currA.next;
+    currB = currB === null ? headA : currB.next;
   }
   return result;
 }
