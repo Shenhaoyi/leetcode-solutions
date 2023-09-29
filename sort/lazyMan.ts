@@ -12,7 +12,7 @@
 */
 
 class LazyMan {
-  stack: (() => void)[] = [];
+  stack: (() => Promise<void> | void)[] = [];
   name: string;
   timer: NodeJS.Timeout | null = null;
   constructor(name: string) {
@@ -43,7 +43,7 @@ class LazyMan {
   }
   sleep(time: number) {
     this.stack.push(async () => {
-      return await new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         setTimeout(resolve, time * 1000);
       });
     });
@@ -51,7 +51,7 @@ class LazyMan {
   }
   sleepFirst(time: number) {
     this.stack.unshift(async () => {
-      return await new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         setTimeout(resolve, time * 1000);
       });
     });
