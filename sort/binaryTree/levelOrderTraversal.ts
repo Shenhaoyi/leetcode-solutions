@@ -1,5 +1,5 @@
 /* 层序遍历 */
-function levelOrder(root: TreeNode | null): number[] {
+export function levelOrder(root: TreeNode | null): number[] {
   if (root === null) return [];
   const result: number[] = [];
   const queue = [root];

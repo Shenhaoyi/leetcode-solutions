@@ -1,7 +1,9 @@
+// 使用递归
+
 // 访问当前节点、左子节点、右子节点的顺序
 
 /* 先序遍历 */
-function preOrder(root: TreeNode | null): number[] {
+export function preOrder(root: TreeNode | null): number[] {
   if (root === null) return [];
   const result: number[] = [];
   const help = (node: TreeNode) => {
@@ -9,11 +11,12 @@ function preOrder(root: TreeNode | null): number[] {
     node.left && help(node.left);
     node.right && help(node.right);
   };
+  help(root);
   return result;
 }
 
 /* 中序遍历 */
-function inOrder(root: TreeNode | null): number[] {
+export function inOrder(root: TreeNode | null): number[] {
   if (root === null) return [];
   const result: number[] = [];
   const help = (node: TreeNode) => {
@@ -21,11 +24,12 @@ function inOrder(root: TreeNode | null): number[] {
     result.push(node.val);
     node.right && help(node.right);
   };
+  help(root);
   return result;
 }
 
 /* 后序遍历 */
-function postOrder(root: TreeNode | null): number[] {
+export function postOrder(root: TreeNode | null): number[] {
   if (root === null) return [];
   const result: number[] = [];
   const help = (node: TreeNode) => {
@@ -33,5 +37,6 @@ function postOrder(root: TreeNode | null): number[] {
     node.right && help(node.right);
     result.push(node.val);
   };
+  help(root);
   return result;
 }
