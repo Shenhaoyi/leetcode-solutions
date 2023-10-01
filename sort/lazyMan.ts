@@ -13,7 +13,7 @@
 
 class LazyMan {
   stack: (() => Promise<void> | void)[] = [];
-  name: string;
+  name: string = '';
   timer: NodeJS.Timeout | null = null;
   constructor(name: string) {
     this.name = name;
@@ -23,7 +23,7 @@ class LazyMan {
     console.log(`Hi, I am ${this.name}`);
   }
   next() {
-    if (this.timer !== null) {
+    if (this.timer) {
       clearTimeout(this.timer);
     }
     // 链式调用的代码都是同步的，会在链式调用完成后再执行
@@ -42,7 +42,7 @@ class LazyMan {
     return this.next();
   }
   sleep(time: number) {
-    this.stack.push(async () => {
+    this.stack.push(() => {
       return new Promise((resolve, reject) => {
         setTimeout(resolve, time * 1000);
       });
@@ -50,7 +50,7 @@ class LazyMan {
     return this.next();
   }
   sleepFirst(time: number) {
-    this.stack.unshift(async () => {
+    this.stack.unshift(() => {
       return new Promise((resolve, reject) => {
         setTimeout(resolve, time * 1000);
       });
