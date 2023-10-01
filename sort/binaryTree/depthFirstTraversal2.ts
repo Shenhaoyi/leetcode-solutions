@@ -17,9 +17,9 @@ export function preOrder2(root: TreeNode | null): number[] {
 
 /* 中序遍历 */
 export function inOrder2(root: TreeNode | null): number[] {
-  if (root === null) return [];
+  if (!root) return [];
   const result: number[] = [];
-  const stack = [];
+  const stack: TreeNode[] = [];
   let current: TreeNode | null = root;
   while (stack.length || current) {
     while (current) {
@@ -27,7 +27,7 @@ export function inOrder2(root: TreeNode | null): number[] {
       current = current.left;
     }
     current = stack.pop() as TreeNode;
-    result.push(current.val);
+    result.push(current.val); // 此时已经确保没有left节点
     current = current.right;
   }
   return result;
