@@ -27,7 +27,7 @@ function averageOfLevels(root: TreeNode | null): number[] {
     const levelLength = queue.length; // 记录当前层的节点数量
     let sum = 0;
     for (let i = 0; i < levelLength; i++) {
-      const current = queue.shift() as TreeNode;
+      const current = queue.shift() as TreeNode; // 注意这里要出队列！
       sum += current.val;
       current.left && queue.push(current.left);
       current.right && queue.push(current.right);
