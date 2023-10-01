@@ -4,39 +4,39 @@
 
 /* 先序遍历 */
 export function preOrder(root: TreeNode | null): number[] {
-  if (root === null) return [];
+  if (!root) return [];
   const result: number[] = [];
-  const help = (node: TreeNode) => {
+  const helper = (node: TreeNode) => {
     result.push(node.val);
-    node.left && help(node.left);
-    node.right && help(node.right);
+    node.left && helper(node.left);
+    node.right && helper(node.right);
   };
-  help(root);
+  helper(root);
   return result;
 }
 
 /* 中序遍历 */
 export function inOrder(root: TreeNode | null): number[] {
-  if (root === null) return [];
+  if (!root) return [];
   const result: number[] = [];
-  const help = (node: TreeNode) => {
-    node.left && help(node.left);
+  const helper = (node: TreeNode) => {
+    node.left && helper(node.left);
     result.push(node.val);
-    node.right && help(node.right);
+    node.right && helper(node.right);
   };
-  help(root);
+  helper(root);
   return result;
 }
 
 /* 后序遍历 */
 export function postOrder(root: TreeNode | null): number[] {
-  if (root === null) return [];
+  if (!root) return [];
   const result: number[] = [];
-  const help = (node: TreeNode) => {
-    node.left && help(node.left);
-    node.right && help(node.right);
+  const helper = (node: TreeNode) => {
+    node.left && helper(node.left);
+    node.right && helper(node.right);
     result.push(node.val);
   };
-  help(root);
+  helper(root);
   return result;
 }

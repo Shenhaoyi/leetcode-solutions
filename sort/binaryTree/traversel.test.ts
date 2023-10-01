@@ -1,7 +1,7 @@
 import { levelOrder } from './levelOrderTraversal';
 import { preOrder, inOrder, postOrder } from './depthFirstTraversal';
 import { preOrder2, inOrder2, postOrder2 } from './depthFirstTraversal2';
-import { TreeNode2 } from './TreeNode2';
+import { TreeNode2 } from './treeNode2';
 /* 
    3
  2   1
