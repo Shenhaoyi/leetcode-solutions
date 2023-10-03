@@ -23,8 +23,14 @@ function trimBST(root: TreeNode | null, low: number, high: number): TreeNode | n
   // 递归
   if (!root) return root;
   // 情况1：当前节点不在区间内
-  if (root.val > high) return trimBST(root.left, low, high);
-  if (root.val < low) return trimBST(root.right, low, high);
+  if (root.val > high) {
+    root.right = null; // 释放内存
+    return trimBST(root.left, low, high);
+  }
+  if (root.val < low) {
+    root.left = null;
+    return trimBST(root.right, low, high);
+  }
   // 情况2：当前节点在区间内
   root.left = trimBST(root.left, low, high);
   root.right = trimBST(root.right, low, high);
