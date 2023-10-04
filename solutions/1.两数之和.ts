@@ -13,6 +13,7 @@ function twoSum(nums: number[], target: number): number[] {
     const diff = target - current;
     if (map.has(diff)) {
       result = [i, map.get(diff)];
+      break;
     } else {
       map.set(current, i);
     }
