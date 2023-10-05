@@ -8,6 +8,7 @@ export class MaxHeap {
     this.array = [...nums];
     // 堆化除叶节点以外的其他所有节点(自底向上)
     for (let i = this.getParent(this.size - 1); i >= 0; i--) {
+      // 注意，起始位置的优化
       this.siftDown(i);
     }
   }
@@ -21,22 +22,22 @@ export class MaxHeap {
   }
 
   /* 获取左子节点索引 */
-  getLeft(i: number): number {
+  getLeft(i: number) {
     return 2 * i + 1;
   }
 
   /* 获取右子节点索引 */
-  getRight(i: number): number {
+  getRight(i: number) {
     return 2 * i + 2;
   }
 
   /* 获取父节点索引 */
-  getParent(i: number): number {
+  getParent(i: number) {
     return Math.floor((i - 1) / 2); // 向下整除
   }
 
   /* 访问堆顶元素 */
-  peek(): number {
+  peek() {
     return this.array[0];
   }
 
@@ -46,7 +47,7 @@ export class MaxHeap {
   }
 
   /* 元素入堆 */
-  push(val: number): void {
+  push(val: number) {
     // 添加节点
     this.array.push(val);
     // 从底至顶堆化
@@ -54,7 +55,7 @@ export class MaxHeap {
   }
 
   /* 从节点 i 开始，从底至顶堆化 */
-  siftUp(i: number): void {
+  siftUp(i: number) {
     while (true) {
       // 获取节点 i 的父节点
       const p = this.getParent(i);
@@ -68,7 +69,7 @@ export class MaxHeap {
   }
 
   /* 元素出堆 */
-  pop(): number {
+  pop() {
     // 判空处理
     if (this.isEmpty()) throw new RangeError('Heap is empty.');
     // 交换根节点与最右叶节点（即交换首元素与尾元素）
@@ -82,7 +83,7 @@ export class MaxHeap {
   }
 
   /* 从节点 i 开始，从顶至底堆化 */
-  siftDown(i: number): void {
+  siftDown(i: number) {
     while (true) {
       // 判断节点 i, l, r 中值最大的节点，记为 ma
       const l = this.getLeft(i);
