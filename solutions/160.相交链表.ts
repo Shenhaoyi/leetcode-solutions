@@ -18,8 +18,6 @@
  */
 
 function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
-  if (headA === null || headB === null) return null;
-  let result: ListNode | null = null;
   // 方法1：2层for循环
   // 方法2：哈希表
   /*
@@ -31,17 +29,14 @@ function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): Li
     l2+l1 = b+c+a+c
     则遍历的时候，必在c处碰上
   */
-  let currA: ListNode | null = headA;
-  let currB: ListNode | null = headB;
+  if (!headA || !headB) return null;
+  let pointerA: ListNode | null = headA;
+  let pointerB: ListNode | null = headB;
   while (true) {
-    if (currA === currB) {
-      // 如果同时为null肯定表示没有交点
-      result = currA;
-      break;
-    }
-    currA = currA === null ? headB : currA.next;
-    currB = currB === null ? headA : currB.next;
+    if (pointerA === pointerB) break; // 如果同时为null肯定表示没有交点
+    pointerA = pointerA === null ? headB : pointerA.next;
+    pointerB = pointerB === null ? headA : pointerB.next;
   }
-  return result;
+  return pointerA;
 }
 // @lc code=end
