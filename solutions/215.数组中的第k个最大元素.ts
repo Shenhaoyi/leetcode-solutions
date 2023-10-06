@@ -78,7 +78,7 @@ function findKthLargest(nums: number[], k: number): number {
   const { length } = negationNums;
   const maxHeap = new MaxHeap(negationNums.slice(0, k));
   for (let i = k; i < length; i++) {
-    const current = negationNums[i];
+    const current = negationNums[i]; // 这里注意不要写成nums了
     maxHeap.push(current);
     maxHeap.pop();
   }
