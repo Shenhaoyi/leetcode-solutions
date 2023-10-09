@@ -51,6 +51,7 @@ function isValidBST(root: TreeNode | null): boolean {
   const helper = (node: TreeNode | null) => {
     if (!node || !result) return; // 追加result判断
     helper(node.left);
+    // 必须严格大于！
     if (node.val <= preValue) {
       result = false;
       return;
