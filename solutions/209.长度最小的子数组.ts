@@ -7,6 +7,11 @@
 // @lc code=start
 function minSubArrayLen(target: number, nums: number[]): number {
   // 1、双指针
+  /* 
+  从左到右移动窗口，左指针和右指针都是往右走，如果比s小，右指针右移
+  否则判断当前长度是否比之前的长度小，然后左指针右移，说明当前左指针所在位置的元素的最短长度已经判断到了，而且是刚刚大于s的情况
+  左指针右移一次可能使得下一个点开始的sum小于也可能大于s，再下一轮循环中判断就行。
+  */
   if (nums.length === 0) return 0;
   let result = Infinity;
   let l = 0;
