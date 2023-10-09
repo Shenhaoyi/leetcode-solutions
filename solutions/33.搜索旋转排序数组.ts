@@ -10,17 +10,22 @@ function search(nums: number[], target: number): number {
   const { length } = nums;
   let l = 0;
   let r = length - 1;
-  while (l < r) {
-    const m = Math.floor(l + (r - l) / 2);
-    if (nums[m] >= nums[0]) {
-      l = m + 1; // m在左边段，则区间向右半段逼近
-    } else if (nums[m] < nums[0]) {
-      r = m; // m在右半段，说明最小值在m或其左边; 当区间在右半段时，r会不断向l逼近
+
+  // 先找到分界点，如果没有旋转就没有必要找了
+  if (nums[0] > nums[nums.length - 1]) {
+    while (l < r) {
+      const m = Math.floor(l + (r - l) / 2);
+      // 必须是小于，否则会找到0
+      if (nums[m] >= nums[0]) {
+        l = m + 1; // m在左边段，则区间向右半段逼近
+      } else if (nums[m] < nums[0]) {
+        r = m; // m在右半段，说明最小值在m或其左边; 当区间在右半段时，r会不断向l逼近
+      }
     }
+    // minValueIndex = l = r;
+    if (target < nums[0]) r = length - 1; // l已经是min所在的位置了
+    else l = 0;
   }
-  // minValueIndex = l = r;
-  if (target < nums[0]) r = length - 1; // l已经是min所在的位置了
-  else l = 0;
 
   while (l < r) {
     const m = Math.floor(l + (r - l) / 2);
