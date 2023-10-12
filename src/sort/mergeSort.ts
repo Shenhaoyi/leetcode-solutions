@@ -14,12 +14,8 @@ export const mergeSort = (nums: number[]): number[] => {
 
 // 合并2个有序数组
 const merge = (nums1: number[], nums2: number[]): number[] => {
-  if (nums1.length === 0) {
-    return nums2;
-  }
-  if (nums2.length === 0) {
-    return nums1;
-  }
+  if (nums1.length === 0) return nums2;
+  if (nums2.length === 0) return nums1;
   // 把最小的放第一个位置，剩下的继续归并
   return nums1[0] < nums2[0]
     ? [nums1[0], ...merge(nums1.slice(1), nums2)]
