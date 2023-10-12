@@ -56,15 +56,11 @@ export class MaxHeap {
 
   /* 从节点 i 开始，从底至顶堆化 */
   siftUp(i: number) {
-    while (true) {
-      // 获取节点 i 的父节点
-      const p = this.getParent(i);
-      // 当“越过根节点”或“节点无须修复”时，结束堆化
-      if (p < 0 || this.array[i] <= this.array[p]) break;
-      // 交换两节点
-      this.swap(i, p);
-      // 循环向上堆化
-      i = p;
+    if (i < 1) return;
+    let parent = this.getParent(i);
+    if (parent >= 0 && this.array[parent] < this.array[i]) {
+      this.swap(i, parent);
+      this.siftUp(parent);
     }
   }
 
@@ -84,19 +80,15 @@ export class MaxHeap {
 
   /* 从节点 i 开始，从顶至底堆化 */
   siftDown(i: number) {
-    while (true) {
-      // 判断节点 i, l, r 中值最大的节点，记为 ma
-      const l = this.getLeft(i);
-      const r = this.getRight(i);
-      let target = i;
-      if (l < this.size && this.array[l] > this.array[target]) target = l;
-      if (r < this.size && this.array[r] > this.array[target]) target = r;
-      // 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
-      if (target === i) break;
-      // 交换两节点
+    let left = this.getLeft(i);
+    let right = this.getRight(i);
+    let target = i;
+
+    if (left < this.size && this.array[left] > this.array[target]) target = left;
+    if (right < this.size && this.array[right] > this.array[target]) target = right;
+    if (target !== i) {
       this.swap(i, target);
-      // 循环向下堆化
-      i = target;
+      this.siftDown(target);
     }
   }
 }
