@@ -31,11 +31,8 @@ export const countSort2 = (nums: number[]) => {
   let max = -Infinity;
   for (let i = 0; i < nums.length; i++) {
     const current = nums[i];
-    if (map.has(current)) {
-      map.set(current, map.get(current) + 1);
-    } else {
-      map.set(current, 1);
-    }
+    const count = map.get(current) || 0;
+    map.set(current, count + 1);
     if (current > max) max = current;
     if (current < min) min = current;
   }
