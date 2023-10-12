@@ -6,8 +6,8 @@ export const shellSort = (nums: number[]) => {
   while (gap > 0) {
     // 按照间隔进行插入排序
     for (let start = 0; start < gap; start++) {
-      // start为当前分隔组的排序起始位置
-      for (let i = start; i < nums.length; i++) {
+      // start为当前分隔组的排序起始位置，步长诶为gap
+      for (let i = start; i < nums.length; i += gap) {
         let pointer = i;
         while (pointer > start) {
           if (nums[pointer] < nums[pointer - gap]) {
