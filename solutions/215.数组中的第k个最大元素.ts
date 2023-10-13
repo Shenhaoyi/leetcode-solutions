@@ -5,18 +5,25 @@
  */
 
 // @lc code=start
-function findKthLargest(nums: number[], k: number): number {}
-// @lc code=end
-
-/* ======================================================================================== */
 class MaxHeap {
-  list: number[] = [];
-  constructor(nums: number[]) {
-    this.list = [...nums];
-    this.buildMaxHeap();
+  array: number[];
+
+  constructor(nums: number[] = []) {
+    this.array = [...nums];
+    this.buildHeap();
   }
-  getParent(i: number) {
-    return Math.floor((i - 1) / 2);
+  buildHeap() {
+    for (let i = this.getParent(this.size - 1); i >= 0; i--) {
+      // 注意，起始位置的优化
+      this.siftDown(i);
+    }
+  }
+
+  get size() {
+    return this.array.length;
+  }
+  isEmpty() {
+    return this.size === 0;
   }
   getLeft(i: number) {
     return 2 * i + 1;
@@ -24,51 +31,64 @@ class MaxHeap {
   getRight(i: number) {
     return 2 * i + 2;
   }
-  get size() {
-    return this.list.length;
+  getParent(i: number) {
+    return Math.floor((i - 1) / 2); // 向下整除
+  }
+
+  peak() {
+    return this.array[0];
   }
   swap(i: number, j: number) {
-    [this.list[i], this.list[j]] = [this.list[j], this.list[i]];
+    if (i === j) return;
+    [this.array[i], this.array[j]] = [this.array[j], this.array[i]];
+  }
+
+  push(val: number) {
+    this.array.push(val);
+    this.siftUp(this.size - 1);
   }
   siftUp(i: number) {
-    if (i < 0) return;
+    if (i < 1) return;
     const parent = this.getParent(i);
-    if (parent >= 0 && this.list[i] > this.list[parent]) {
-      this.swap(parent, i);
+    if (this.array[i] > this.array[parent]) {
+      this.swap(i, parent);
       this.siftUp(parent);
     }
   }
-  push(num: number) {
-    this.list.push(num);
-    this.siftUp(this.size - 1);
+
+  pop() {
+    if (this.isEmpty()) throw new RangeError('Heap is empty.');
+    this.swap(0, this.size - 1);
+    const val = this.array.pop() as number;
+    this.siftDown(0);
+    return val;
   }
-  peak() {
-    return this.list[0];
-  }
+
   siftDown(i: number) {
-    if (i >= this.size) return;
     const left = this.getLeft(i);
     const right = this.getRight(i);
-    let target = i;
-    if (left < this.size && this.list[left] > this.list[target]) target = left;
-    if (right < this.size && this.list[right] > this.list[target]) target = right;
-    if (target !== i) {
-      this.swap(i, target);
-      this.siftDown(target);
-    }
-  }
-  pop() {
-    this.swap(0, this.size - 1);
-    const result = this.list.pop();
-    this.siftDown(0);
-    return result;
-  }
-  buildMaxHeap() {
-    for (let i = this.size - 1; i >= 0; i--) {
-      this.siftDown(i);
+    let targetIndex = i;
+    if (left < this.size && this.array[left] > this.array[targetIndex]) targetIndex = left;
+    if (right < this.size && this.array[right] > this.array[targetIndex]) targetIndex = right;
+    if (targetIndex !== i) {
+      this.swap(i, targetIndex);
+      this.siftDown(targetIndex);
     }
   }
 }
+// 2、维护一个大小为k的大顶堆，目标是得到最大的k个元素。若将所有元素取反，是最小的k个元素，每次将最大的弹出即可（效果并不好啊）
+function findKthLargest(nums: number[], k: number): number {
+  const negationNums = nums.map((i) => -i);
+  const maxHeap = new MaxHeap(negationNums.slice(0, k));
+  for (let i = k; i < negationNums.length; i++) {
+    const current = negationNums[i];
+    maxHeap.push(current);
+    maxHeap.pop();
+  }
+  return -maxHeap.peak();
+}
+// @lc code=end
+
 
 // 1、堆排序之后返回第k大(写起来省事点)
 function findKthLargest_1(nums: number[], k: number): number {
@@ -78,18 +98,6 @@ function findKthLargest_1(nums: number[], k: number): number {
     result = maxHeap.pop() as number;
   }
   return result;
-}
-// 2、维护一个大小为k的大顶堆，目标是得到最大的k个元素。若将所有元素取反，是最小的k个元素，每次将最大的弹出即可（效果并不好啊）
-function findKthLargest_2(nums: number[], k: number): number {
-  const negationNums = nums.map((i) => -i);
-  const { length } = negationNums;
-  const maxHeap = new MaxHeap(negationNums.slice(0, k));
-  for (let i = k; i < length; i++) {
-    const current = negationNums[i]; // 这里注意不要写成nums了
-    maxHeap.push(current);
-    maxHeap.pop();
-  }
-  return -maxHeap.peak();
 }
 /*
   3、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
@@ -176,23 +184,23 @@ function findKthLargest_4(nums: number[], k: number): number {
   quickSort4(nums, 0, nums.length - 1, nums.length - k);
   return nums[nums.length - k];
 }
-// 5、快排偷懒写法，超时
-function findKthLargest_5(nums: number[], k: number): number {
-  // 快排，当pivot与k-1相等时就可以返回了
-  const targetIndex = nums.length - k;
-  const quickSort = (nums: number[]): number[] => {
-    if (nums.length < 2) return nums;
-    const left: number[] = [];
-    const right: number[] = [];
-    const pivot = Math.floor(nums.length / 2);
-    const base = nums[pivot];
-    nums.forEach((current, index) => {
-      if (index === pivot) return;
-      if (current < base) left.push(current);
-      else right.push(current);
-    });
-    return [...quickSort(left), base, ...quickSort(right)];
-  };
-  const newNums = quickSort(nums);
-  return newNums[targetIndex];
-}
+// 5、快排偷懒写法，超时【x】
+// function findKthLargest_5(nums: number[], k: number): number {
+//   // 快排，当pivot与k-1相等时就可以返回了
+//   const targetIndex = nums.length - k;
+//   const quickSort = (nums: number[]): number[] => {
+//     if (nums.length < 2) return nums;
+//     const left: number[] = [];
+//     const right: number[] = [];
+//     const pivot = Math.floor(nums.length / 2);
+//     const base = nums[pivot];
+//     nums.forEach((current, index) => {
+//       if (index === pivot) return;
+//       if (current < base) left.push(current);
+//       else right.push(current);
+//     });
+//     return [...quickSort(left), base, ...quickSort(right)];
+//   };
+//   const newNums = quickSort(nums);
+//   return newNums[targetIndex];
+// }
