@@ -74,14 +74,43 @@ function findKthLargest(nums: number[], k: number): number {
   // }
   // return result;
   // 2、维护一个大小为k的大顶堆，目标是得到最大的k个元素。若将所有元素取反，是最小的k个元素，每次将最大的弹出即可（效果并不好啊）
-  const negationNums = nums.map((i) => -i);
-  const { length } = negationNums;
-  const maxHeap = new MaxHeap(negationNums.slice(0, k));
-  for (let i = k; i < length; i++) {
-    const current = negationNums[i]; // 这里注意不要写成nums了
-    maxHeap.push(current);
-    maxHeap.pop();
+  // const negationNums = nums.map((i) => -i);
+  // const { length } = negationNums;
+  // const maxHeap = new MaxHeap(negationNums.slice(0, k));
+  // for (let i = k; i < length; i++) {
+  //   const current = negationNums[i]; // 这里注意不要写成nums了
+  //   maxHeap.push(current);
+  //   maxHeap.pop();
+  // }
+  // return -maxHeap.peak();
+  // 3、快排，当pivot与k-1相等时就可以返回了
+  // 4、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
+  let result = 0;
+  let min = Infinity;
+  let max = -Infinity;
+  nums.forEach((current) => {
+    if (current < min) min = current;
+    if (current > max) max = current;
+  });
+  let newNums = nums.map((current) => current - min);
+  const newMin = min - min;
+  const newMax = max - min;
+  const map = new Map<number, number>();
+  newNums.forEach((current) => {
+    const count = map.get(current) || 0;
+    map.set(current, count + 1);
+  });
+
+  for (let i = newMax; i >= newMin; i--) {
+    const count = map.get(i);
+    if (count) {
+      k -= count;
+      if (k <= 0) {
+        result = i + min; // 记得加回来
+        break;
+      }
+    }
   }
-  return -maxHeap.peak();
+  return result;
 }
 // @lc code=end
