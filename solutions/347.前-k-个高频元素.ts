@@ -10,27 +10,23 @@
 function topKFrequent(nums: number[], k: number): number[] {
   const result: number[] = [];
   const map = new Map<number, number>();
-  nums.forEach((ele) => {
-    if (map.has(ele)) {
-      const oldVal = map.get(ele) as number;
-      map.set(ele, oldVal + 1);
-    } else {
-      map.set(ele, 1);
-    }
-  });
+  for (let current of nums) {
+    let count = map.get(current) || 0;
+    map.set(current, count + 1);
+  }
   // 入桶，因为一个桶只对应一个数字，所以桶内不用排序，因为下标就是要排序的值
-  let arr: number[][] = [];
+  let bucketList: number[][] = [];
   map.forEach((value, key) => {
-    if (arr[value]) {
-      arr[value].push(key);
-    } else {
-      arr[value] = [key];
+    // value是出现频率，key是值，数组下标自带排序(频率可能相同，所以一个下表可能有多个数字)
+    if (!bucketList[value]) {
+      bucketList[value] = [];
     }
+    bucketList[value].push(key);
   });
-  arr = arr.filter(Boolean); // 因为已经排好了，可以把空元素过滤掉
+  bucketList = bucketList.filter(Boolean); // 因为已经排好了，可以把空元素过滤掉
   let count = k;
   while (count > 0) {
-    const bucket = arr.pop() as number[]; //
+    const bucket = bucketList.pop() as number[];
     result.push(...bucket);
     count -= bucket.length;
   }
