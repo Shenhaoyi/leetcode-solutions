@@ -84,7 +84,10 @@ function findKthLargest(nums: number[], k: number): number {
   // }
   // return -maxHeap.peak();
   // 3、快排，当pivot与k-1相等时就可以返回了
-  // 4、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
+  /*
+    4、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
+    如果max远大于数组的长度就不是O(N)了
+  */
   let result = 0;
   let min = Infinity;
   let max = -Infinity;
@@ -92,13 +95,14 @@ function findKthLargest(nums: number[], k: number): number {
     if (current < min) min = current;
     if (current > max) max = current;
   });
-  let newNums = nums.map((current) => current - min);
+  // 数据整体减min，保证都大于等于0
   const newMin = min - min;
   const newMax = max - min;
   const map = new Map<number, number>();
-  newNums.forEach((current) => {
-    const count = map.get(current) || 0;
-    map.set(current, count + 1);
+  nums.forEach((current) => {
+    const newCurrent = current - min;
+    const count = map.get(newCurrent) || 0;
+    map.set(newCurrent, count + 1);
   });
 
   for (let i = newMax; i >= newMin; i--) {
