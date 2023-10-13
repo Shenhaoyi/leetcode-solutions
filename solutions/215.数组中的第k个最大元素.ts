@@ -5,7 +5,42 @@
  */
 
 // @lc code=start
-function findKthLargest(nums: number[], k: number): number {}
+const partition = (nums: number[], left: number, right: number) => {
+  if (left === right) return left;
+  let l = left;
+  let r = right;
+  const base = nums[right];
+  while (l < r) {
+    while (l < r && nums[l] <= base) l++;
+    while (l < r && nums[r] >= base) r--;
+    if (l < r) {
+      swap(nums, l, r);
+    }
+  }
+  swap(nums, l, right);
+  return l;
+};
+
+const quickSort = (nums: number[], left: number, right: number, targetIndex: number) => {
+  if (left >= right) return;
+  const pivot = partition(nums, left, right);
+  if (pivot === targetIndex) {
+    return;
+  } else if (pivot > targetIndex) {
+    quickSort(nums, left, pivot - 1, targetIndex);
+  } else if (pivot < targetIndex) {
+    quickSort(nums, pivot + 1, right, targetIndex);
+  }
+};
+const swap = (nums: number[], i: number, j: number) => {
+  if (i === j || i < 0 || j < 0) return;
+  [nums[i], nums[j]] = [nums[j], nums[i]];
+};
+function findKthLargest(nums: number[], k: number): number {
+  // 快排，当pivot与k-1相等时就可以返回了
+  quickSort(nums, 0, nums.length - 1, nums.length - k);
+  return nums[nums.length - k];
+}
 // @lc code=end
 
 /* ======================================================================================== */
@@ -91,10 +126,8 @@ function findKthLargest_2(nums: number[], k: number): number {
   }
   return -maxHeap.peak();
 }
-// 3、快排，当pivot与k-1相等时就可以返回了
-function findKthLargest_3(nums: number[], k: number): number {}
 /*
-  4、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
+  3、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
   如果max远大于数组的长度就不是O(N)了
 */
 function findKthLargest_4(nums: number[], k: number): number {
