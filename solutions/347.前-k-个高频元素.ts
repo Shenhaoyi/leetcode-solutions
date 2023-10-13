@@ -6,7 +6,7 @@
 
 // @lc code=start
 // 参考：https://leetcode.cn/problems/top-k-frequent-elements/solutions/279360/javascript-qian-k-ge-gao-pin-yuan-su-by-user7746o/
-// 将出现频率作为桶值范围，因为频率是自然数
+// 将出现频率作为桶值范围，因为频率是自然数（也可以看做计数排序的变种，排的是频率，拿的是出现该频率的数字）
 function topKFrequent(nums: number[], k: number): number[] {
   const result: number[] = [];
   const map = new Map<number, number>();
