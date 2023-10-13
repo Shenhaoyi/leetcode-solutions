@@ -5,6 +5,10 @@
  */
 
 // @lc code=start
+function findKthLargest(nums: number[], k: number): number {}
+// @lc code=end
+
+/* ======================================================================================== */
 class MaxHeap {
   list: number[] = [];
   constructor(nums: number[]) {
@@ -65,29 +69,35 @@ class MaxHeap {
     }
   }
 }
-function findKthLargest(nums: number[], k: number): number {
-  // 1、全部排序之后返回第k大(写起来省事点)
-  // let result = 0;
-  // const maxHeap = new MaxHeap(nums);
-  // for (let i = 0; i < k; i++) {
-  //   result = maxHeap.pop() as number;
-  // }
-  // return result;
-  // 2、维护一个大小为k的大顶堆，目标是得到最大的k个元素。若将所有元素取反，是最小的k个元素，每次将最大的弹出即可（效果并不好啊）
-  // const negationNums = nums.map((i) => -i);
-  // const { length } = negationNums;
-  // const maxHeap = new MaxHeap(negationNums.slice(0, k));
-  // for (let i = k; i < length; i++) {
-  //   const current = negationNums[i]; // 这里注意不要写成nums了
-  //   maxHeap.push(current);
-  //   maxHeap.pop();
-  // }
-  // return -maxHeap.peak();
-  // 3、快排，当pivot与k-1相等时就可以返回了
-  /*
-    4、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
-    如果max远大于数组的长度就不是O(N)了
-  */
+
+// 1、堆排序之后返回第k大(写起来省事点)
+function findKthLargest_1(nums: number[], k: number): number {
+  let result = 0;
+  const maxHeap = new MaxHeap(nums);
+  for (let i = 0; i < k; i++) {
+    result = maxHeap.pop() as number;
+  }
+  return result;
+}
+// 2、维护一个大小为k的大顶堆，目标是得到最大的k个元素。若将所有元素取反，是最小的k个元素，每次将最大的弹出即可（效果并不好啊）
+function findKthLargest_2(nums: number[], k: number): number {
+  const negationNums = nums.map((i) => -i);
+  const { length } = negationNums;
+  const maxHeap = new MaxHeap(negationNums.slice(0, k));
+  for (let i = k; i < length; i++) {
+    const current = negationNums[i]; // 这里注意不要写成nums了
+    maxHeap.push(current);
+    maxHeap.pop();
+  }
+  return -maxHeap.peak();
+}
+// 3、快排，当pivot与k-1相等时就可以返回了
+function findKthLargest_3(nums: number[], k: number): number {}
+/*
+  4、如果题目给的自然数的话，可以使用计数排序（因为是整数，可以先找到最小的数字，然后整体减去这个最小的数字，再做计数排序）
+  如果max远大于数组的长度就不是O(N)了
+*/
+function findKthLargest_4(nums: number[], k: number): number {
   let result = 0;
   let min = Infinity;
   let max = -Infinity;
@@ -117,4 +127,3 @@ function findKthLargest(nums: number[], k: number): number {
   }
   return result;
 }
-// @lc code=end
