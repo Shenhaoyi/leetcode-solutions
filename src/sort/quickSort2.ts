@@ -13,6 +13,7 @@ export const quickSort2 = (nums: number[]): number[] => {
     if (current < base) {
       left.push(current);
     } else {
+      // 注意不要用else if> 会漏掉等于的请情况
       // 注意避免条件重合
       right.push(current);
     }
