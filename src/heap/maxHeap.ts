@@ -7,6 +7,9 @@ export class MaxHeap {
     // 将列表元素原封不动添加进堆
     this.array = [...nums];
     // 堆化除叶节点以外的其他所有节点(自底向上)
+    this.buildHeap();
+  }
+  buildHeap() {
     for (let i = this.getParent(this.size - 1); i >= 0; i--) {
       // 注意，起始位置的优化
       this.siftDown(i);
@@ -57,8 +60,8 @@ export class MaxHeap {
   /* 从节点 i 开始，从底至顶堆化 */
   siftUp(i: number) {
     if (i < 1) return;
-    let parent = this.getParent(i);
-    if (parent >= 0 && this.array[parent] < this.array[i]) {
+    const parent = this.getParent(i);
+    if (this.array[i] > this.array[parent]) {
       this.swap(i, parent);
       this.siftUp(parent);
     }
@@ -80,15 +83,14 @@ export class MaxHeap {
 
   /* 从节点 i 开始，从顶至底堆化 */
   siftDown(i: number) {
-    let left = this.getLeft(i);
-    let right = this.getRight(i);
-    let target = i;
-
-    if (left < this.size && this.array[left] > this.array[target]) target = left;
-    if (right < this.size && this.array[right] > this.array[target]) target = right;
-    if (target !== i) {
-      this.swap(i, target);
-      this.siftDown(target);
+    const left = this.getLeft(i);
+    const right = this.getRight(i);
+    let targetIndex = i;
+    if (left < this.size && this.array[left] > this.array[targetIndex]) targetIndex = left;
+    if (right < this.size && this.array[right] > this.array[targetIndex]) targetIndex = right;
+    if (targetIndex !== i) {
+      this.swap(i, targetIndex);
+      this.siftDown(targetIndex);
     }
   }
 }
