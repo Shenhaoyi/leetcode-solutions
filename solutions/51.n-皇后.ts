@@ -21,6 +21,7 @@ function backTrack5(
   result: string[][],
 ) {
   if (rowIndex === n) {
+    // 注意走到n才是停止，因为n-1的时候还没走完，还要选
     result.push(state.map((line) => line.join('')));
   } else if (rowIndex < n) {
     for (let i = 0; i < n; i++) {
@@ -45,8 +46,8 @@ function solveNQueens(n: number): string[][] {
   const result: string[][] = [];
   const state = new Array(n).fill(undefined).map(() => new Array(n).fill('.'));
   const cols = new Array(n).fill(false); // 标识列上是否已经有皇后
-  const mainDiag = new Array(2 * (n - 1)).fill(false);
-  const minorDiag = new Array(2 * (n - 1)).fill(false);
+  const mainDiag = new Array(2 * n - 1).fill(false);
+  const minorDiag = new Array(2 * n - 1).fill(false);
   backTrack5(state, n, 0, cols, mainDiag, minorDiag, result);
   return result;
 }
