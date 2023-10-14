@@ -16,7 +16,7 @@ function backTrack4(state: number[], choices: number[], target: number, currentI
       backTrack4(state, choices, target - current, i + 1, result); // 元素不能重复，所以下一次从i+1开始
       state.pop();
       while (choices[i] === current) i++; // 将与当前元素相同的情况进行剪枝，因为从第一个该值进行的搜索可以覆盖这种情况，例如从444选可以覆盖从44中选
-      i--;
+      i--; // 因为上面还有一个++
       // 回退
     }
   }
