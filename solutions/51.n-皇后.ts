@@ -11,7 +11,7 @@
   col+row范围 0 ~ 2*n-2
 */
 
-function backTrack(
+function backTrack5(
   state: string[][],
   n: number,
   rowIndex: number, // 当前处理的行
@@ -31,7 +31,7 @@ function backTrack(
         cols[i] = true;
         mainDiag[n - 1 + rowIndex - i] = true;
         minorDiag[rowIndex + i] = true;
-        backTrack(state, n, rowIndex + 1, cols, mainDiag, minorDiag, result);
+        backTrack5(state, n, rowIndex + 1, cols, mainDiag, minorDiag, result);
         //回退
         cols[i] = false;
         mainDiag[n - 1 + rowIndex - i] = false;
@@ -47,7 +47,7 @@ function solveNQueens(n: number): string[][] {
   const cols = new Array(n).fill(false); // 标识列上是否已经有皇后
   const mainDiag = new Array(2 * (n - 1)).fill(false);
   const minorDiag = new Array(2 * (n - 1)).fill(false);
-  backTrack(state, n, 0, cols, mainDiag, minorDiag, result);
+  backTrack5(state, n, 0, cols, mainDiag, minorDiag, result);
   return result;
 }
 // @lc code=end
