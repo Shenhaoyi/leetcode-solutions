@@ -18,7 +18,7 @@ function minCostClimbingStairs(cost: number[]): number {
 
   // 2、空间优化版
   const { length } = cost;
-  const dp = [cost[0], cost[1]];
+  const dp = [cost[0], cost[1]]; // dp记录的事从i出发最少要多少
   for (let i = 2; i < length; i++) {
     dp.push(Math.min(dp[0], dp[1]) + cost[i]);
     dp.shift();
