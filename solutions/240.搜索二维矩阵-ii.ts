@@ -11,15 +11,17 @@ function searchMatrix(matrix: number[][], target: number): boolean {
   const n = matrix[0]?.length || 0;
   let result = false;
   for (let i = 0; i < m; i++) {
-    const currentList = matrix[i];
+    const currentLine = matrix[i];
+    // if (currentLine[0] > target) break; // 当前行首位判断一下，不判断也行
+    // if (currentLine[n - 1] < target) continue;
     let l = 0;
     let r = n - 1;
     while (l < r) {
       const m = Math.floor(l + (r - l) / 2);
-      if (currentList[m] < target) l = m + 1;
+      if (currentLine[m] < target) l = m + 1;
       else r = m;
     }
-    if (currentList[l] === target) {
+    if (currentLine[l] === target) {
       result = true;
       break;
     }
