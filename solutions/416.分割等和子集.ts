@@ -13,18 +13,11 @@ function canPartition(nums: number[]): boolean {
   const m = sum / 2;
   if (m !== Math.floor(sum / 2)) return false;
   const dp = new Array(m + 1).fill(0); // 空间优化，只用一行
-  for (let j = 1; j < m + 1; j++) {
-    const current = nums[0]; // 既是weight也是value
-    if (j >= current) {
-      dp[j] = current;
-    } else {
-      dp[j] = 0;
-    }
-  }
-  for (let i = 2; i < n; i++) {
+
+  for (let i = 1; i < n; i++) {
+    const current = nums[i - 1];
     // 倒序
     for (let j = m; j >= 1; j--) {
-      const current = nums[i - 1];
       if (j - current >= 0) {
         dp[j] = Math.max(dp[j], dp[j - current] + current);
       } else {
