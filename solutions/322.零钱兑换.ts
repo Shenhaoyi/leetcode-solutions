@@ -27,10 +27,13 @@ function coinChange(coins: number[], amount: number): number {
       if (j - currentWeight > 0) {
         // 可以重复选择！！
         dp[j] = Math.min(dp[j], dp[j - currentWeight] + currentValue);
-      } else if (j - currentWeight === 0) {
-        // 正好装下1个
-        dp[j] = currentValue;
-      } else {
+      }
+      // 可以和上面的合并，因为等于的时候是第0列，已经初始化为0了
+      // else if (j - currentWeight === 0) {
+      //   // 正好装下1个
+      //   dp[j] = currentValue;
+      // }
+      else {
         // 当前装不下
         dp[j] = dp[j];
       }
