@@ -12,7 +12,7 @@ function countFilesInFolder(folderPath, reg) {
   files.forEach((file) => {
     const filePath = path.join(folderPath, file);
     const stats = fs.statSync(filePath);
-    if (stats.isFile() && /^\d+\./.test(file)) {
+    if (stats.isFile() && reg.test(file)) {
       // 如果是文件，且有序号
       fileCount++;
     }
@@ -23,7 +23,7 @@ function countFilesInFolder(folderPath, reg) {
 
 // 定义要统计的文件夹路径
 const folderPath = './solutions';
-const reg = /^\d+\.\w+\.ts$/;
+const reg = /^\d+\./;
 
 // 调用函数并输出结果
 const totalFiles = countFilesInFolder(folderPath, reg);
