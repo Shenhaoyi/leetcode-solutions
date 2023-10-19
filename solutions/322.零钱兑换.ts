@@ -11,6 +11,7 @@ function coinChange(coins: number[], amount: number): number {
   // value：一个硬币1
   // 最大容量：总金额amount
   // 目标是只找到value最小的，且正好达到最大容量
+  // 思路是，所有不是正好装满的都为无穷大，这样就能在所有能正好装满的情况中比较出最小的值了。
   const { length: m } = coins;
   const n = amount;
   const MAX = amount + 1;
@@ -35,7 +36,7 @@ function coinChange(coins: number[], amount: number): number {
       }
     }
   }
-  // 大于amount+1说明所有的情况都不能正好装下
+  // 等于MAX说明所有的情况都不能正好装下
   return dp[m][n] === MAX ? -1 : dp[m][n];
 }
 // @lc code=end
