@@ -13,3 +13,10 @@ test('完全背包 2', () => {
   const bagWeight = 7; //背包最大容纳量
   expect(unboundedKnapsack(weight, value, bagWeight)).toBe(14);
 });
+
+test('完全背包 3', () => {
+  const weight = [1, 2, 3, 4, 5]; //物体体积
+  const value = [11, 3, 6, 8, 10]; //物体价值
+  const bagWeight = 7; //背包最大容纳量
+  expect(unboundedKnapsack(weight, value, bagWeight)).toBe(77);
+});

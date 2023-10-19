@@ -10,7 +10,7 @@ export function unboundedKnapsack(weight: number[], value: number[], bagWeight: 
     const currentWeight = weight[0];
     const currentValue = value[0];
     if (j >= currentWeight) {
-      dp[j] = currentValue;
+      dp[j] = dp[j - currentWeight] + currentValue; // 注意这里，多出来的空间还能让当前物品再放！
     } else {
       dp[j] = 0;
     }
