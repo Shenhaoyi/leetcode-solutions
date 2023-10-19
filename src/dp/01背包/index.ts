@@ -1,20 +1,21 @@
 export function bagProblem(weight: number[], value: number[], bagWeight: number) {
   const { length: n } = weight;
   // dp[i][j]表示i个物品，最大重量为j时的最优值(下标0无用)
+  // 这里已经初始化，第0列表示无空间，则能放的value为0；第0行表示没有物品，能放的value也为0；所以其实第1行不需要初始化，
   const dp = new Array(n + 1).fill(undefined).map(() => new Array(bagWeight + 1).fill(0));
 
-  // 初始化第一行
-  for (let j = 1; j <= bagWeight; j++) {
-    const currentWeight = weight[0];
-    const currentValue = value[0];
-    if (j >= currentWeight) {
-      dp[1][j] = currentValue;
-    } else {
-      dp[1][j] = 0;
-    }
-  }
+  // 初始化第一行，第0行已经初始化过了
+  // for (let j = 1; j <= bagWeight; j++) {
+  //   const currentWeight = weight[0];
+  //   const currentValue = value[0];
+  //   if (j >= currentWeight) {
+  //     dp[1][j] = currentValue;
+  //   } else {
+  //     dp[1][j] = 0;
+  //   }
+  // }
 
-  for (let i = 2; i <= n; i++) {
+  for (let i = 1; i <= n; i++) {
     for (let j = 1; j <= bagWeight; j++) {
       const currentWeight = weight[i - 1];
       const currentValue = value[i - 1];
@@ -32,20 +33,20 @@ export function bagProblem(weight: number[], value: number[], bagWeight: number)
 export function bagProblem2(weight: number[], value: number[], bagWeight: number) {
   const { length: n } = weight;
   // dp[i][j]表示i个物品，最大重量为j时的最优值(下标0无用)
-  const dp =  new Array(bagWeight + 1).fill(0);
+  const dp = new Array(bagWeight + 1).fill(0);
 
   // 初始化第一行
-  for (let j = 1; j <= bagWeight; j++) {
-    const currentWeight = weight[0];
-    const currentValue = value[0];
-    if (j >= currentWeight) {
-      dp[j] = currentValue;
-    } else {
-      dp[j] = 0;
-    }
-  }
+  // for (let j = 1; j <= bagWeight; j++) {
+  //   const currentWeight = weight[0];
+  //   const currentValue = value[0];
+  //   if (j >= currentWeight) {
+  //     dp[j] = currentValue;
+  //   } else {
+  //     dp[j] = 0;
+  //   }
+  // }
 
-  for (let i = 2; i <= n; i++) {
+  for (let i = 1; i <= n; i++) {
     for (let j = bagWeight; j >= 1; j--) {
       const currentWeight = weight[i - 1];
       const currentValue = value[i - 1];
