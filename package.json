@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc --watch",
-    "test": "vitest --run"
+    "test": "vitest --run",
+    "count": "node ./leetcode-count.js"
   },
   "keywords": [],
   "author": "",
