@@ -19,7 +19,26 @@
  * }
  */
 
+// https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solutions/234752/zhong-xu-bian-li-bian-yi-ge-kou-jue-bang-zhu-li-ji/
+// 空或搜到即返回。左搜搜，右搜搜。左右都有，那就是你；左没便在右，右没便在左
 function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
+  // 左右都找到target，则是最近的公共祖先
+  if (!root) return root;
+  if (root === p || root === q) return root; // 找到了
+  // 后序遍历，这样才能在回溯过程中判断左右
+  const left = lowestCommonAncestor(root.left, p, q);
+  const right = lowestCommonAncestor(root.right, p, q);
+  if (!left) return right;
+  else if (!right) return left;
+  else {
+    // 左边右边分别有target，则当前就是结果！
+    return root;
+  }
+}
+// @lc code=end
+
+function lowestCommonAncestor2(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
+  // 先找路径，再根据路径判断
   // 先找到节点的路径——使用回溯
   let pathP: (TreeNode | null)[] = [];
   let pathQ: (TreeNode | null)[] = [];
@@ -62,4 +81,3 @@ function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: Tree
 
   return pathP[pointer];
 }
-// @lc code=end
