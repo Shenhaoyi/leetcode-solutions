@@ -7,7 +7,7 @@ import { TreeNode2 } from './treeNode2';
  2   1
 7 6 8 9
 */
-const initTree = () => {
+export const initTree = () => {
   const root = new TreeNode2(3);
   root.left = new TreeNode2(2, new TreeNode2(7), new TreeNode2(6));
   root.right = new TreeNode2(1, new TreeNode2(8), new TreeNode2(9));
