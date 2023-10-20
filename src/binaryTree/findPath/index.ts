@@ -14,13 +14,13 @@ export const findPath = (
     state.push(currentNode.left);
     findPath(state, currentNode.left, target, result);
     // 回退
-    state.pop;
+    state.pop();
 
     // 右子树
     // 试探
     state.push(currentNode.right);
     findPath(state, currentNode.right, target, result);
     // 回退
-    state.pop;
+    state.pop();
   }
 };
