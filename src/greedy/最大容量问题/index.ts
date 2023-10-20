@@ -9,7 +9,6 @@ export function maxCapacity(ht: number[]): number {
   while (i < j) {
     // 更新最大容量
     const cap: number = Math.min(ht[i], ht[j]) * (j - i);
-    console.log(i, j, cap);
 
     res = Math.max(res, cap);
     // 向内移动短板，移动长板必然导致容量变小。
