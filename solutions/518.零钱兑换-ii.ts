@@ -7,6 +7,9 @@
 // @lc code=start
 // 可重复
 function change(amount: number, coins: number[]): number {
+  // 1、回溯也行，不过回超时，39题的代码可以直接拿来用
+  // return combinationSum(coins, amount).length
+  // 2、dp
   const m = coins.length;
   const n = amount;
   const dp = new Array(n + 1).fill(0); // 第一行表示没有物品能放，初始化为0
