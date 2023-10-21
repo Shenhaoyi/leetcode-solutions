@@ -1,0 +1,39 @@
+/*
+ * @lc app=leetcode.cn id=124 lang=typescript
+ *
+ * [124] 二叉树中的最大路径和
+ */
+
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+// 时间复杂度空间复杂度都是O(N)
+function maxPathSum(root: TreeNode | null): number {
+  // 深度优先遍历，左右单边路径和+当前，每个节点都这样分析一遍，得后序遍历，这样才能先得到左右
+  let result = -Infinity;
+  // 当前节点到叶子节点的最大路径和
+  const dfs = (node: TreeNode | null): number => {
+    if (!node) return 0;
+    const left = dfs(node.left);
+    const right = dfs(node.right);
+    // 更新最终要的计算结果
+    const currentMax = Math.max(left, 0) + Math.max(right, 0) + node.val; // 子路径为负，则应该舍弃
+    result = Math.max(result, currentMax);
+    // 返回从node开始到叶子节点的最大路径和
+    return Math.max(left, right, 0) + node.val; // 返回左右路径中的一条
+  };
+  dfs(root);
+  return result;
+}
+// @lc code=end
