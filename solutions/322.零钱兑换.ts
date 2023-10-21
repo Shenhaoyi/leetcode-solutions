@@ -24,7 +24,7 @@ function coinChange(coins: number[], amount: number): number {
   for (let i = 1; i <= m; i++) {
     const currentWeight = coins[i - 1];
     for (let j = 1; j <= n; j++) {
-      if (j - currentWeight > 0) {
+      if (j - currentWeight >= 0) {
         // 可以重复选择！！
         dp[j] = Math.min(dp[j], dp[j - currentWeight] + currentValue);
       }
