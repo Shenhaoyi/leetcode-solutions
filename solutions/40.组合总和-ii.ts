@@ -14,10 +14,11 @@ function backTrack4(state: number[], choices: number[], target: number, currentI
       // 尝试当前
       state.push(current);
       backTrack4(state, choices, target - current, i + 1, result); // 元素不能重复，所以下一次从i+1开始
-      state.pop();
-      while (choices[i] === current) i++; // 将与当前元素相同的情况进行剪枝，因为从第一个该值进行的搜索可以覆盖这种情况，例如从444选可以覆盖从44中选
-      i--; // 因为上面还有一个++
       // 回退
+      state.pop();
+      // 下标前进，相当于重复的元素能多选几次已经在本轮处理完了，该元素不能再选了，再选，分支就重复了
+      while (choices[i] === current) i++; // 将与当前元素相同的情况进行剪枝，因为从第一个该值进行的搜索可以覆盖这种情况，例如从444选可以覆盖从44中选
+      i--; // 因为上面还有一个++；i指向最后一个等于current的数字，下一轮++之后，就不等于current了
     }
   }
 }
