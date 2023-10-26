@@ -20,8 +20,8 @@ function minDistance(word1: string, word2: string): number {
     dp[0][j] = j; // 从一个长度为0的字符串变成长度为j的字符串
   }
   for (let i = 1; i < m + 1; i++) {
+    const current1 = word1[i - 1];
     for (let j = 1; j < n + 1; j++) {
-      const current1 = word1[i - 1];
       const current2 = word2[j - 1];
       if (current1 === current2) {
         dp[i][j] = dp[i - 1][j - 1];
