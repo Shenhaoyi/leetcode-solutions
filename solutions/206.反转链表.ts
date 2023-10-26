@@ -17,22 +17,19 @@
 } */
 
 function reverseList(head: ListNode | null): ListNode | null {
-  // 递归
-  // 空链表/链尾的情况
-  // if (head === null || head.next === null) return head;
-  // const next = head.next;
-  // // 依次反转节点
-  // const help = function (before: ListNode, head: ListNode): ListNode {
-  //   const next = head.next;
-  //   head.next = before;
-  //   if (next === null) return head;
-  //   return help(head, next);
-  // };
-  // // 头节点指向
-  // head.next = null;
-  // return help(head, next);
-  //
-  // 迭代，比较好理解，也比较省空间
+  // 1、递归
+  // 空链表、链尾（通过递归返回，最后得到表头）的情况
+  if (!head || !head.next) return head;
+  const newHead = reverseList(head.next);
+  // 因为是递归，从尾结点开始，每一步，将右边的节点指向左边的节点，将左边的节点与其左边的节点的连接断开（出了表头，其实这一步是多余的）
+  head.next.next = head;
+  head.next = null;
+  return newHead;
+}
+// @lc code=end
+
+function reverseList2(head: ListNode | null): ListNode | null {
+  // 2、迭代，比较好理解，也比较省空间
   if (head === null || head.next === null) return head;
   let current = head;
   let next = current.next;
@@ -46,4 +43,3 @@ function reverseList(head: ListNode | null): ListNode | null {
   }
   return current;
 }
-// @lc code=end
