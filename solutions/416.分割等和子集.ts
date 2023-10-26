@@ -7,11 +7,11 @@
 // @lc code=start
 function canPartition(nums: number[]): boolean {
   const sum = nums.reduce((curr, prev) => prev + curr, 0);
+  if (sum % 2) return false;
   // 1. 回溯，子集，找到子集和等于sum/2，大于就剪枝。经过剪枝时间复杂度略小于2^n
   // 2. 转化为01背包问题，数组的元素同时是weight和value，最大总量为sum/2，如果dp[sum/2] === sum/2，说明存在
   const { length: n } = nums;
   const m = sum / 2;
-  if (m !== Math.floor(sum / 2)) return false;
   const dp = new Array(m + 1).fill(0); // 空间优化，只用一行
 
   for (let i = 1; i < n; i++) {
