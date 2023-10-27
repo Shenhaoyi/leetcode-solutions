@@ -27,7 +27,7 @@ function threeSum(nums: number[]): number[][] {
         // 左右指针同时向内移动
         while (left < right && nums[right - 1] === nums[right]) right--;
         right--;
-        while (left < right && nums[left + 1] === nums[i]) left++;
+        while (left < right && nums[left + 1] === nums[left]) left++;
         left++;
       } else if (sum > 0) {
         // 大于，则，右指针移动到左边的数
@@ -35,7 +35,7 @@ function threeSum(nums: number[]): number[][] {
         right--;
       } else {
         // 小于，则左指针移动到右边的数
-        while (left < right && nums[left + 1] === nums[i]) left++;
+        while (left < right && nums[left + 1] === nums[left]) left++;
         left++;
       }
     }
