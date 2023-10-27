@@ -21,6 +21,7 @@
 
 // https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solutions/234752/zhong-xu-bian-li-bian-yi-ge-kou-jue-bang-zhu-li-ji/
 // 空或搜到即返回。左搜搜，右搜搜。左右都有，那就是你；左没便在右，右没便在左
+// 有单边target时，返回单边target；有双边target时，返回自身；自身就是target时，返回自身，这种情况覆盖了单边有target，自身也是target的情况
 function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
   // 左右都找到target，则是最近的公共祖先
   if (!root) return root;
