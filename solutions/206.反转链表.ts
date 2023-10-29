@@ -30,6 +30,7 @@ function reverseList(head: ListNode | null): ListNode | null {
 
 function reverseList2(head: ListNode | null): ListNode | null {
   // 2、迭代，比较好理解，也比较省空间
+  // 2个指针分别指向当前断开的地方，在循环中执行连接（会自动断开）
   if (head === null || head.next === null) return head;
   let current = head;
   let next = current.next;
