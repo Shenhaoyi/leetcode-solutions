@@ -26,13 +26,13 @@ function maxPathSum(root: TreeNode | null): number {
   // 当前节点到叶子节点的最大路径和
   const dfs = (node: TreeNode | null): number => {
     if (!node) return 0;
-    const left = dfs(node.left);
-    const right = dfs(node.right);
+    const left = Math.max(dfs(node.left), 0);
+    const right = Math.max(dfs(node.right), 0);
     // 更新最终要的计算结果
-    const currentMax = Math.max(left, 0) + Math.max(right, 0) + node.val; // 子路径为负，则应该舍弃
-    result = Math.max(result, currentMax);
+    const currentSum = left + right + node.val; // 子路径为负，则应该舍弃
+    result = Math.max(result, currentSum);
     // 返回从node开始到叶子节点的最大路径和
-    return Math.max(left, right, 0) + node.val; // 返回左右路径中的一条
+    return Math.max(left, right) + node.val; // 返回左右路径中的一条
   };
   dfs(root);
   return result;
