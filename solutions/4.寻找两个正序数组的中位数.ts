@@ -25,18 +25,19 @@ function findKthTargetFromTwoList(nums1: number[], nums2: number[], begin1: numb
   const p1 = Math.min(begin1 + m, length1 - 1); // 越界处理
   const p2 = Math.min(begin2 + m, length2 - 1);
   if (nums1[p1] < nums2[p2]) {
+    const nextK = k - (p1 - begin1 + 1); // 抛弃 begin1~p1 区间内的元素
     if (p1 === length1 - 1) {
       // nums1抛弃
-      const nextK = k - (p1 - begin1 + 1); // 抛弃 begin1~p1 区间内的元素
       return nums2[begin2 + nextK - 1]; // ，从begin2开始到第nextK个元素，需要-1
     }
-    return findKthTargetFromTwoList(nums1, nums2, p1 + 1, begin2, k - (p1 + 1 - begin1)); // 排除 begin1 ~ p1的内容 （不含p1+1）
+    return findKthTargetFromTwoList(nums1, nums2, p1 + 1, begin2, nextK); // 排除 begin1 ~ p1的内容 （不含p1+1）
   } else {
+    const nextK = k - (p2 - begin2 + 1);
     if (p2 === length2 - 1) {
       // nums2抛弃
-      return nums1[begin1 + k - (p2 - begin2 + 1) - 1];
+      return nums1[begin1 + nextK - 1];
     }
-    return findKthTargetFromTwoList(nums1, nums2, begin1, p2 + 1, k - (p2 + 1 - begin2));
+    return findKthTargetFromTwoList(nums1, nums2, begin1, p2 + 1, nextK);
   }
 }
 
@@ -56,8 +57,8 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
       (findKthTargetFromTwoList(nums1, nums2, 0, 0, m + 1) + findKthTargetFromTwoList(nums1, nums2, 0, 0, m)) / 2;
   } else {
     // 长度和为奇数 012
-    const m = (length - 1) / 2; // 中位数为m
-    result = findKthTargetFromTwoList(nums1, nums2, 0, 0, m + 1);
+    const m = (length + 1) / 2; // 中位数为m
+    result = findKthTargetFromTwoList(nums1, nums2, 0, 0, m);
   }
   return result;
 }
@@ -72,8 +73,8 @@ function findMedianSortedArray(nums: number[]) {
     return (nums[m] + nums[m - 1]) / 2;
   } else {
     // 012
-    const m = (length - 1) / 2;
-    return nums[m];
+    const m = (length + 1) / 2;
+    return nums[m - 1];
   }
 }
 // @lc code=end
