@@ -13,7 +13,8 @@ function countBits(n: number): number[] {
   dp[0] = 0;
   for (let i = 1; i <= n; i++) {
     if (i % 2 === 1) {
-      dp[i] = dp[i - 1] + 1;
+      // dp[i] = dp[i - 1] + 1; // 和前一个偶数的差别是末位为1
+      dp[i] = dp[(i - 1) / 2] + 1; // 减一 除二
     } else {
       dp[i] = dp[i / 2];
     }
