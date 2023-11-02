@@ -6,6 +6,7 @@
 
 // @lc code=start
 function hammingDistance(x: number, y: number): number {
+  // 每次只比较末位，比较完之后右移一位
   let result = 0;
   while (x !== 0 || y !== 0) {
     if ((x & 1) !== (y & 1)) {
