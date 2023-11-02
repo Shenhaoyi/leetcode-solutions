@@ -21,13 +21,12 @@ function subarraySum(nums: number[], k: number): number {
     const current = nums[i];
     prefixSum += current;
 
-    let list = map.get(prefixSum);
     const targetList = map.get(prefixSum - k); // k是两者之差
-
     if (targetList) {
       result += targetList.length;
     }
 
+    let list = map.get(prefixSum);
     if (!list) {
       list = [];
       map.set(prefixSum, list);
