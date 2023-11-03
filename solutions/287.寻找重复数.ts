@@ -1,0 +1,28 @@
+/*
+ * @lc app=leetcode.cn id=287 lang=typescript
+ *
+ * [287] 寻找重复数
+ */
+
+// @lc code=start
+function findDuplicate(nums: number[]): number {
+  // https://www.bilibili.com/video/BV1HG411C7ZM/
+  // 数组值就是next元素的下标，因为有2个位置是重复的，那么他们都会指向一个节点。
+  // 想像一下，如果没有重复，就是一条链表
+  // 如果有重复，则第一个位置正常指向下一个节点N1，遇到第二个位置是，右指向N1了
+  // 因此：转换成寻找链表换的入口
+  let slow = 0;
+  let fast = 0;
+  while (true) {
+    slow = nums[slow];
+    fast = nums[nums[fast]];
+    if (slow === fast) break;
+  }
+  slow = 0;
+  while (nums[slow] !== nums[fast]) {
+    slow = nums[slow];
+    fast = nums[fast];
+  }
+  return nums[slow];
+}
+// @lc code=end
