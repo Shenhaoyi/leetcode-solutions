@@ -20,10 +20,7 @@ function leastBricks(wall: number[][]): number {
       }
     }
   }
-  let max = 0;
-  for (let [key, value] of map.entries()) {
-    max = Math.max(value, max);
-  }
+  const max = Math.max(...map.values(), 0); // map可能为空
   return wall.length - max;
 }
 // @lc code=end
