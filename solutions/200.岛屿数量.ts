@@ -9,8 +9,8 @@
   思路与【695.岛屿的面积】一样
 */
 function numIslands(grid: string[][]): number {
-  let row = grid.length;
-  let col = grid[0].length;
+  const row = grid.length;
+  const col = grid[0].length;
   let result = 0;
   // 沉岛，每遇到一个岛就让它全部为2
   const dfs = (i: number, j: number) => {
