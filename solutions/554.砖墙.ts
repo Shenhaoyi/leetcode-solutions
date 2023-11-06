@@ -12,7 +12,7 @@ function leastBricks(wall: number[][]): number {
     let sum = 0;
     const currentLine = wall[i];
     for (let j = 0; j < currentLine.length - 1; j++) {
-      sum += wall[i][j];
+      sum += currentLine[j];
       if (map.has(sum)) {
         map.set(sum, map.get(sum) + 1);
       } else {
