@@ -23,9 +23,9 @@ function isPalindrome(head: ListNode | null): boolean {
   // 思路，将后半段的节点进行翻转。
   /*
     快指针快速移动
-    1 234，从3开始反转
+    1 234，从3开始反转 fast: 3, null; slow: 2 3
     头节点后面的节点数量为奇数个N，慢指针指向 (N+1)/2，快指针指向 N+1(null)
-    1 2345，从4开始反转
+    1 2345，从4开始反转 fast: 3, 5; slow: 2 3
     头节点后面的节点数量为偶数个N，慢指针指向 N/2，快指针指向 N(tail)
   */
   // 1.找到翻转的起始位置
@@ -36,11 +36,11 @@ function isPalindrome(head: ListNode | null): boolean {
     slow = slow!.next;
   }
   if (fast) {
-    slow = slow!.next;
+    slow = slow!.next; // 确保 slow 在后半段开头
   }
   // 2.将slow到tail进行翻转
-  let next = slow!.next;
   let current = slow;
+  let next = current!.next;
   current!.next = null;
   while (next) {
     const temp = next.next;
