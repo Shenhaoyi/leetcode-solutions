@@ -16,8 +16,8 @@ function numIslands(grid: string[][]): number {
   const dfs = (i: number, j: number) => {
     if (i < 0 || i > row - 1 || j < 0 || j > col - 1) {
       return;
-    } else if (grid[i][j] !== '1') return;
-    else {
+    }
+    if (grid[i][j] === '1') {
       grid[i][j] = '2';
       dfs(i - 1, j);
       dfs(i, j - 1);
