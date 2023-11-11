@@ -30,6 +30,7 @@ function detectCycle(head: ListNode | null): ListNode | null {
     fast = fast.next.next;
     if (fast === slow) break;
   }
+  // 不是因为相等而跳出循环、或者没有进循环（head 为 null）时，说明没有环。
   if (!fast || !fast.next) return null;
   slow = head;
   while (fast !== slow) {
