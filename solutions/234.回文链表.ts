@@ -35,9 +35,7 @@ function isPalindrome(head: ListNode | null): boolean {
     fast = fast.next.next;
     slow = slow!.next;
   }
-  if (fast) {
-    slow = slow!.next; // 确保 slow 在后半段开头
-  }
+  // 此时慢指针在 3，从 3 开始反转没问题
   // 2.将slow到tail进行翻转
   let current = slow;
   let next = current!.next;
