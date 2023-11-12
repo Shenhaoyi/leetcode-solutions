@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 注意：只买入 1 次
 function maxProfit(prices: number[]): number {
   // 一次遍历，不是动态规划
   // 遍历的过程中，记录之前出现的最低点, 当前卖出的话一定是希望之前是在最低点买入的
