@@ -60,7 +60,7 @@ function maxProfit3(prices: number[]): number {
   // 遍历的过程中，记录之前出现的最低点, 当前卖出的话一定是希望之前是在最低点买入的
   let minPrice = prices[0];
   let result = 0;
-  for (let i = 1; i < prices.length; i++) {
+  for (let i = 1; i < length; i++) {
     result = Math.max(result, prices[i] - minPrice);
     minPrice = Math.min(minPrice, prices[i]);
   }

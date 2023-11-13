@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// @ts-ignore
 function maxProfit(prices: number[], fee: number): number {
   // dp(空间可以在优化，只留一行就行)
   // 对比 122，只是多了 fee，卖出时，减去 fee 就行
@@ -12,7 +13,7 @@ function maxProfit(prices: number[], fee: number): number {
   if (length < 2) return 0;
   // 0不持有，1 持有
   const dp = Array.from({ length }, () => new Array<number>());
-  for (let i = 0; i < prices.length; i++) {
+  for (let i = 0; i < length; i++) {
     if (i === 0) {
       dp[0][1] = -prices[0]; // 开始就持有，说明开始就买了
       dp[0][0] = 0;
@@ -27,6 +28,6 @@ function maxProfit(prices: number[], fee: number): number {
       dp[i - 1][1] + prices[i] - fee, // i - 1 持有，i 卖出
     );
   }
-  return dp[prices.length - 1][0]; // 最后一天必须未持有
+  return dp[length - 1][0]; // 最后一天必须未持有
 }
 // @lc code=end
