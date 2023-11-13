@@ -18,7 +18,7 @@ function maxProfit(prices: number[]): number {
     // dp0 依赖 dp1，需要缓存下
     const tempDp1 = dp[1];
     dp[1] = Math.max(
-      dp[0] - prices[i], // 当天卖出（即持有）
+      dp[0] - prices[i], // 当天买入（即持有）
       dp[1], // 之前就持有
     );
     dp[0] = Math.max(
@@ -43,7 +43,7 @@ function maxProfit4(prices: number[]): number {
       continue;
     }
     dp[i][1] = Math.max(
-      dp[i - 1][0] - prices[i], // 当天卖出（即持有）
+      dp[i - 1][0] - prices[i], // 当天买入（即持有）
       dp[i - 1][1], // 之前就持有
     );
     dp[i][0] = Math.max(

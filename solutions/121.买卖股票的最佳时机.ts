@@ -23,7 +23,7 @@ function maxProfit(prices: number[]): number {
       dp[1] + prices[i], // i - 1 持有，i 卖出
     );
     dp[1] = Math.max(
-      -prices[i], // 当天卖出（即持有）
+      -prices[i], // 当天买入（即持有）
       dp[1], // 之前就持有
     );
   }
@@ -48,7 +48,7 @@ function maxProfit2(prices: number[]): number {
       dp[i - 1][1] + prices[i], // i - 1 持有，i 卖出
     );
     dp[i][1] = Math.max(
-      -prices[i], // 当天卖出（即持有）
+      -prices[i], // 当天买入（即持有）
       dp[i - 1][1], // 之前就持有
     );
   }
