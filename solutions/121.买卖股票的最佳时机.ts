@@ -31,6 +31,7 @@ function maxProfit(prices: number[]): number {
 }
 // @lc code=end
 
+// @ts-ignore
 function maxProfit2(prices: number[]): number {
   // dp
   const { length } = prices;
