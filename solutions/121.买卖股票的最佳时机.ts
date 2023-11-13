@@ -12,7 +12,7 @@ function maxProfit(prices: number[]): number {
   const { length } = prices;
   if (length < 2) return 0;
   const dp: number[] = []; // 下标 0 表示未持有，1 表示持有
-  for (let i = 0; i < prices.length; i++) {
+  for (let i = 0; i < length; i++) {
     if (i === 0) {
       dp[1] = -prices[0]; // 开始就持有，说明开始就买了
       dp[0] = 0;
@@ -36,7 +36,7 @@ function maxProfit2(prices: number[]): number {
   const { length } = prices;
   if (length < 2) return 0;
   const dp: number[][] = []; //一个存状态dp[i][0/1]  第二个状态表示是否持有，1表示持有
-  for (let i = 0; i < prices.length; i++) {
+  for (let i = 0; i < length; i++) {
     dp[i] = [];
     if (i === 0) {
       dp[0][1] = -prices[0]; // 开始就持有，说明开始就买了
@@ -52,7 +52,7 @@ function maxProfit2(prices: number[]): number {
       dp[i - 1][1], // 之前就持有
     );
   }
-  return dp[prices.length - 1][0]; // 最后一天必须未持有
+  return dp[length - 1][0]; // 最后一天必须未持有
 }
 
 function maxProfit3(prices: number[]): number {
