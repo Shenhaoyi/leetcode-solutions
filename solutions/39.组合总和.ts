@@ -5,6 +5,31 @@
  */
 
 // @lc code=start
+function backTrack6(state: number[], choices: number[], target: number, currentIndex: number, result: number[][]) {
+  if (target === 0) {
+    result.push([...state]);
+  } else if (target > 0) {
+    if (currentIndex > choices.length - 1) return; // 越界（下面的方法在 for 循环中进行限制了）
+    // 可选元素下标大于等于当前下标
+    const current = choices[currentIndex];
+    // 当前位置再尝试
+    state.push(current);
+    backTrack6(state, choices, target - current, currentIndex, result);
+    //当前位置回退
+    state.pop();
+    backTrack6(state, choices, target, currentIndex + 1, result);
+  }
+  // 小于就回退
+  // else return
+}
+
+function combinationSum(candidates: number[], target: number): number[][] {
+  const result: number[][] = [];
+  backTrack6([], candidates, target, 0, result);
+  return result;
+}
+// @lc code=end
+
 /**
  * @description:
  * @param {number} state 当前路径
@@ -31,10 +56,3 @@ function backTrack3(state: number[], choices: number[], target: number, currentI
   // 小于就回退
   // else return
 }
-
-function combinationSum(candidates: number[], target: number): number[][] {
-  const result: number[][] = [];
-  backTrack3([], candidates, target, 0, result);
-  return result;
-}
-// @lc code=end
