@@ -8,6 +8,8 @@
 /* 
   幂集：由该集合全部子集为元素构成的集合
   题解：https://leetcode.cn/problems/subsets/solutions/420458/shou-hua-tu-jie-zi-ji-hui-su-fa-xiang-jie-wei-yun-/
+  时间复杂度：O(2^N)
+  空间复杂度：递归调用栈的代价是 O(N)，state是 O(N)，PowerSet 就可能比较大了
 */
 function subsets(nums: number[]): number[][] {
   const powerSet: number[][] = [];
