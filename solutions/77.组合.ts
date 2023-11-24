@@ -28,3 +28,22 @@ function combine(n: number, k: number): number[][] {
   return result;
 }
 // @lc code=end
+
+// 方法 2：更优，但是不好记
+function combine2(n: number, k: number): number[][] {
+  const result: number[][] = [];
+  const backTrack = (state: number[], currentNum: number) => {
+    if (state.length === k) {
+      result.push([...state]);
+      return;
+    }
+    for (let i = currentNum; i <= n; i++) {
+      // 放
+      state.push(i);
+      backTrack(state, i + 1);
+      state.pop();
+    }
+  };
+  backTrack([], 1);
+  return result;
+}
