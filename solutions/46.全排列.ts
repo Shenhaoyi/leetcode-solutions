@@ -8,21 +8,21 @@
 function permute(nums: number[]): number[][] {
   const result: number[][] = [];
   const { length } = nums;
-  const used: Record<string, boolean> = {}; // 记录节点是否已经经过
+  const used = Array.from({ length }, () => false); // 记录节点是否已经经过，用下标对应
   const backTrack = (state: number[]) => {
     if (state.length === length) {
       result.push([...state]); // 注意要克隆
       return;
     }
-    for (let current of nums) {
-      if (used[current]) continue; // 剪枝
+    for (let i in nums) {
+      if (used[i]) continue; // 剪枝
       // 试探
-      used[current] = true;
-      state.push(current);
+      used[i] = true;
+      state.push(nums[i]);
       backTrack(state);
       // 回退
       state.pop();
-      used[current] = false;
+      used[i] = false;
     }
   };
   backTrack([]);
