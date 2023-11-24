@@ -33,3 +33,23 @@ function subsets(nums: number[]): number[][] {
   return powerSet;
 }
 // @lc code=end
+
+// 方法 2：更优，但是不好记
+function subsets2(nums: number[]): number[][] {
+  const powerSet: number[][] = [];
+  const { length } = nums;
+  const backTrack = (state: number[], index: number) => {
+    powerSet.push([...state]); // 因为每次必放，所以每个节点都是一种子集
+    // index 会在for 循环中被限制住，所以不会越界
+    for (let i = index; i < length; i++) {
+      const current = nums[i];
+      // 当前放
+      state.push(current);
+      backTrack(state, i + 1); // 注意是 i 而不是 index
+      state.pop();
+      // 注意，必须放，所以没有了不放的代码
+    }
+  };
+  backTrack([], 0);
+  return powerSet;
+}
