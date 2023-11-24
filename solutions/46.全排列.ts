@@ -15,14 +15,16 @@ function permute(nums: number[]): number[][] {
       return;
     }
     for (let i in nums) {
-      if (used[i]) continue; // 剪枝
-      // 试探
-      used[i] = true;
-      state.push(nums[i]);
-      backTrack(state);
-      // 回退
-      state.pop();
-      used[i] = false;
+      // 剪枝
+      if (!used[i]) {
+        // 试探
+        used[i] = true;
+        state.push(nums[i]);
+        backTrack(state);
+        // 回退
+        state.pop();
+        used[i] = false;
+      }
     }
   };
   backTrack([]);
