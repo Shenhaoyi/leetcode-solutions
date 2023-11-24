@@ -12,11 +12,12 @@ function backTrack6(state: number[], choices: number[], target: number, currentI
     if (currentIndex > choices.length - 1) return; // 越界（下面的方法在 for 循环中进行限制了）
     // 可选元素下标大于等于当前下标
     const current = choices[currentIndex];
-    // 当前位置再尝试
+    // 当前位置尝试
     state.push(current);
     backTrack6(state, choices, target - current, currentIndex, result);
-    //当前位置回退
+    // 当前位置回退
     state.pop();
+    // 当前元素不选
     backTrack6(state, choices, target, currentIndex + 1, result);
   }
   // 小于就回退
@@ -46,10 +47,10 @@ function backTrack3(state: number[], choices: number[], target: number, currentI
     // 可选元素下标大于等于当前下标
     for (let i = currentIndex; i < choices.length; i++) {
       const current = choices[i];
-      // 当前位置再尝试
+      // 当前位置尝试
       state.push(current);
       backTrack3(state, choices, target - current, i, result);
-      //当前位置回退
+      // 当前位置回退
       state.pop();
     }
   }
