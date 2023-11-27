@@ -15,7 +15,7 @@ function maxProfit(k: number, prices: number[]): number {
   // 优化一下 k
   k = Math.min(k, Math.floor(length / 2)); // length 最多交易Math.floor(length / 2) 次
   // (天、最多已经交易的次数、是否持有), 0不持有，1 持有
-  const dp = Array.from({ length: k + 1 }, () => new Array<number>());
+  const dp = Array.from({ length: k + 1 }, () => new Array<number>(2));
   for (let i = 0; i < length; i++) {
     for (let j = 0; j <= k; j++) {
       if (j === 0) {
@@ -52,7 +52,7 @@ function maxProfit2(k: number, prices: number[]): number {
   // 优化一下 k
   k = Math.min(k, Math.floor(length / 2)); // length 最多交易Math.floor(length / 2) 次
   // (天、最多已经交易的次数、是否持有), 0不持有，1 持有
-  const dp = Array.from({ length }, () => Array.from({ length: k + 1 }, () => new Array<number>()));
+  const dp = Array.from({ length }, () => Array.from({ length: k + 1 }, () => new Array<number>(2)));
   for (let i = 0; i < length; i++) {
     for (let j = 0; j <= k; j++) {
       if (j === 0) {

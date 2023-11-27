@@ -14,7 +14,7 @@ function maxProfit(prices: number[]): number {
   if (length < 2) return 0;
   const k = 2;
   // (天、最多已经交易的次数、是否持有), 0不持有，1 持有
-  const dp = Array.from({ length }, () => Array.from({ length: k + 1 }, () => new Array<number>()));
+  const dp = Array.from({ length }, () => Array.from({ length: k + 1 }, () => new Array<number>(2)));
   for (let i = 0; i < length; i++) {
     for (let j = 0; j <= k; j++) {
       if (j === 0) {
