@@ -12,32 +12,33 @@ function maxProfit(prices: number[]): number {
   const { length } = prices;
   if (length < 2) return 0;
   // 0不持有，1 持有
-  const dp = Array.from({ length }, () => new Array<number>());
+  const dp = Array.from({ length }, () => new Array<number>(2));
   for (let i = 0; i < length; i++) {
+    const current = prices[i];
     if (i === 0) {
-      dp[0][1] = -prices[0]; // 开始就持有，说明开始就买了
+      dp[0][1] = -current; // 开始就持有，说明开始就买了
       dp[0][0] = 0;
       continue;
     }
     // 第二天
     if (i === 1) {
       dp[1][1] = Math.max(
-        -prices[i], // 第二天买入
         dp[i - 1][1], // 第一天买入
+        -prices[i], // 第二天买入
       );
       dp[1][0] = Math.max(
         dp[i - 1][0], // 延续 i - 1 的未持有
-        dp[i - 1][1] + prices[i], // i - 1 持有，i 卖出
+        dp[i - 1][1] + current, // i - 1 持有，i 卖出
       );
       continue;
     }
     dp[i][1] = Math.max(
-      dp[i - 2][0] - prices[i], // 当天买入（即持有），必须前一天开始就没有持有
+      dp[i - 2][0] - current, // 当天买入（即持有），必须前一天开始就没有持有
       dp[i - 1][1], // 之前就持有
     );
     dp[i][0] = Math.max(
       dp[i - 1][0], // 延续 i - 1 的未持有
-      dp[i - 1][1] + prices[i], // i - 1 持有，i 卖出
+      dp[i - 1][1] + current, // i - 1 持有，i 卖出
     );
   }
   return dp[length - 1][0]; // 最后一天必须未持有
