@@ -18,11 +18,10 @@ function maximalSquare(matrix: string[][]): number {
       状态转移：currentLength = min(左上角.length, 上边.length, 左边.length) + 1
   */
   const { length: row } = matrix;
-  if (row < 1) return 0;
   const col = matrix[0].length;
   // 记录边长
   const dp = Array.from({ length: row }, () => new Array<number>(col));
-  let result = 0; // 返回的是面积
+  let result = 0; // 记录的是边长，注意：需要返回的是面积
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < col; j++) {
       if (i === 0 || j === 0) {
