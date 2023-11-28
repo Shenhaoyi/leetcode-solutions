@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// @ts-ignore
 function twoSum(nums: number[], target: number): number[] {
   let result: number[] = [];
   const map = new Map();

@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// @ts-ignore
 function twoSum(numbers: number[], target: number): number[] {
   // 双指针
   let left = 0;

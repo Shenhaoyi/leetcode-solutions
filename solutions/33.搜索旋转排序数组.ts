@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// @ts-ignore
 function search(nums: number[], target: number): number {
   // 思路，先找最小值所在边界，再判断target在左边还是右边，按照递增数组查找即可
   const { length } = nums;
