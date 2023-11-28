@@ -22,8 +22,8 @@ function integerBreak(n: number): number {
       // 拆除的数字 范围：1 ~ i - 1
       currentMax = Math.max(
         currentMax,
-        j * (i - j), // 剩下的数字不拆(存在不够拆的情况！)
-        j * dp[i - j], // 剩下的数字拆
+        j * (i - j), // 剩下的数字不拆(存在不够拆的情况！)，也是只拆 2 个数的情况
+        j * dp[i - j], // 剩下的数字拆，至少拆 3 个数及以上的情况。
       );
     }
     dp[i] = currentMax;
