@@ -24,29 +24,24 @@
  */
 
 const localFlatten = (root: TreeNode | null) => {
-  if (!root) return root;
-  const leftHead = localFlatten(root.left);
-
-  // 找到左子树的最右边的，也就是反中序遍历的第一步
-  let leftTail = root.left;
-  // 如果一开始就是null，那么head那里会出了，否则不会找到null的
-  while (leftTail && leftTail.right) {
-    leftTail = leftTail.right;
+  if (root) {
+    const rightHead = localFlatten(root.right);
+    if (root.left /*左子树非空，则需要拼接*/) {
+      const leftHead = localFlatten(root.left);
+      // 找到左子树的最右边的，也就是反中序遍历的第一步(但是这里明显是已经转成链表了，直接.right到底就行)
+      // TODO:确认下这端代码放在 flatten 的前面和后面为什么又区别，真正二叉树先序遍历的最后一个元素也是.right到底找到的啊？
+      let leftTail = root.left;
+      // 如果一开始就是null，那么head那里会出了，否则不会找到null的
+      while (leftTail && leftTail.right) {
+        leftTail = leftTail.right;
+      }
+      // 注意，得先让左右子树先转链表，再进行拼接！！！还要注意赋值顺序
+      leftTail.right = rightHead;
+      root.right = leftHead;
+      // 清空左子树
+      root.left = null;
+    }
   }
-
-  const rightHead = localFlatten(root.right);
-
-  // 清空左子树
-  root.left = null;
-
-  if (leftHead) {
-    root.right = leftHead;
-    leftTail!.right = rightHead;
-  } else {
-    // 左边为null的情况
-    root.right = rightHead;
-  }
-
   return root;
 };
 
