@@ -20,7 +20,7 @@
  */
 
 function diameterOfBinaryTree(root: TreeNode | null): number {
-  //空或者只有一个节点检测
+  //空或者只有一个节点检测（删掉也不影响）
   if (!root || (!root.left && !root.right)) return 0;
   let max = 0;
   // 求深度的时候，计算以节点为根的直径
