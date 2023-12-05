@@ -18,7 +18,6 @@
  *     }
  * }
  */
-// @ts-ignore
 /* 
   注意点：
   1.路径从上到下，不需要始于头，结于尾；
@@ -28,6 +27,7 @@
     时间复杂度：O(Nlog2N)
   2.前缀和（TODO:以后有空实现下）
 */
+// @ts-ignore
 function pathSum(root: TreeNode | null, targetSum: number): number {
   let result = 0;
   const backTrack = (state: TreeNode[], node: TreeNode | null) => {
