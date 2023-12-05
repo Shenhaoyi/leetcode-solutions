@@ -18,7 +18,7 @@
  *     }
  * }
  */
-
+// @ts-ignore
 function pathSum(root: TreeNode | null, targetSum: number): number[][] {
   // 回溯
   const result: number[][] = [];
