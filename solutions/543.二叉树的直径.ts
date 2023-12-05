@@ -20,12 +20,13 @@
  */
 
 function diameterOfBinaryTree(root: TreeNode | null): number {
-  //空或者只有一个节点检测（删掉也不影响）
+  // 后续遍历：每个节点都计算自己到叶子节点的最大深度
+  // 空或者只有一个节点检测（删掉也不影响）
   if (!root || (!root.left && !root.right)) return 0;
   let max = 0;
   // 求深度的时候，计算以节点为根的直径
   const maxDepth = (root: TreeNode | null): number => {
-    //空检测
+    // 空检测
     if (!root) return 0;
     const leftDepth = maxDepth(root.left);
     const rightDepth = maxDepth(root.right);
