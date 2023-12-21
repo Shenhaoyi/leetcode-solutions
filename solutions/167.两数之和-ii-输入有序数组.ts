@@ -12,13 +12,14 @@ function twoSum(numbers: number[], target: number): number[] {
   let right = numbers.length - 1;
   let result: number[] = [];
   while (left < right) {
-    if (numbers[left] + numbers[right] == target) {
+    const sum = numbers[left] + numbers[right];
+    if (sum == target) {
       result = [left + 1, right + 1];
       break;
-    } else if (numbers[left] + numbers[right] > target) {
-      right -= 1;
+    } else if (sum > target) {
+      right--;
     } else {
-      left += 1;
+      left++;
     }
   }
   return result;
