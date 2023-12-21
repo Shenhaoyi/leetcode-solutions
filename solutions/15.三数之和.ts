@@ -5,14 +5,14 @@
  */
 
 // @lc code=start
-/* 
+/*
   k神题解：https://leetcode.cn/problems/3sum/solutions/11525/3sumpai-xu-shuang-zhi-zhen-yi-dong-by-jyd/
 */
 function threeSum(nums: number[]): number[][] {
   // 排序，小中大的顺序
   nums.sort((a, b) => a - b);
   let result: number[][] = [];
-  // 一遍循环 + 双指针, 注意同一个指针不能去相同的数字，否则会有重合的组合
+  // 一遍循环 + 双指针, 注意同一个指针不能用相同的数字，否则会有重合的组合
   const { length } = nums;
   // -2，因为右边至少还需要 2 个数字
   for (let i = 0; i < length - 2; i++) {
