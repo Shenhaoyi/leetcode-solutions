@@ -23,6 +23,7 @@ function pathSum(root: TreeNode | null, targetSum: number): number[][] {
   // 回溯
   const result: number[][] = [];
   if (!root) return result;
+  // 只处理非 null 的节点！
   const backTrack = (state: number[], sum: number, node: TreeNode) => {
     if (!node.left && !node.right) {
       if (sum === targetSum) result.push([...state]);
