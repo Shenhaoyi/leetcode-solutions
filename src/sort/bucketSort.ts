@@ -8,10 +8,7 @@ export const bucketSort = (nums: number[], bucketCount = 5) => {
   // [0, 15]
   // [0,5], (5,10],(10,15]
   const bucketRange = Math.ceil((max - min) / bucketCount); // 每个桶的数值范围，ceil保证所有数值能覆盖到
-  const bucketList = new Array<number[]>(bucketCount); // 用fill有问题！！！！！
-  for (let i = 0; i < bucketList.length; i++) {
-    bucketList[i] = [];
-  }
+  const bucketList = Array.from({ length: bucketCount }, () => new Array<number>());
 
   // 元素入桶
   nums.forEach((ele) => {
