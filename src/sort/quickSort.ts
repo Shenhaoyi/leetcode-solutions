@@ -8,7 +8,7 @@ import { swap } from '../utils';
  * @return {*}
  */
 export const partition = (nums: number[], left: number, right: number): number => {
-  if (left === right) return left;
+  if (left === right) return left; // 存疑
   let i = left;
   let j = right;
   const base = nums[right]; // 以最右边的元素为基数
@@ -22,6 +22,10 @@ export const partition = (nums: number[], left: number, right: number): number =
     // 2.不进入循环
     if (i < j) {
       swap(nums, i, j);
+      // 交换之后，nums[i] < pivot < nums[j]
+      // 不能写下面的代码，因为可能会造成 i = j，而 nums[i] 与 pivot 的大小关系不确定
+      // i++;
+      // j--;
     }
   }
   // nums[i] 一定大于等于base
@@ -36,7 +40,7 @@ export const partition = (nums: number[], left: number, right: number): number =
 const quick = (nums: number[], left: number, right: number): void => {
   if (left >= right) return;
   const pivot = partition(nums, left, right); // 枢纽
-  // 左右分治
+  // 左右分治，注意区间不要包含pivot
   quick(nums, left, pivot - 1);
   quick(nums, pivot + 1, right);
 };
