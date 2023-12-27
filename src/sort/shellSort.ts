@@ -12,7 +12,7 @@ export const shellSort = (nums: number[]) => {
         while (pointer > start) {
           if (nums[pointer] < nums[pointer - gap]) {
             swap(nums, pointer, pointer - gap);
-          }
+          } else break;
           pointer -= gap;
         }
       }
