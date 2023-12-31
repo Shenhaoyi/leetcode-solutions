@@ -1,11 +1,12 @@
-/* 
+/*
   归并排序，
   划分阶段：二分，直至不能再分
   合并阶段：左右两组数组分别都是有序的，依次从下表0的位置开始比较，并push到结果中
 */
 export const mergeSort = (nums: number[]): number[] => {
-  if (nums.length < 2) return nums;
-  const m = Math.floor(nums.length / 2);
+  const { length } = nums;
+  if (length <= 1) return nums;
+  const m = Math.floor(length / 2);
   // 与二叉树的后续遍历一样，左右先排好序，然后在归并
   const left = mergeSort(nums.slice(0, m)); // 不包含m
   const right = mergeSort(nums.slice(m)); // 包含m
