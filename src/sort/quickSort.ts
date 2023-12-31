@@ -8,9 +8,8 @@ import { swap } from '../utils';
  * @return {*}
  */
 export const partition = (nums: number[], left: number, right: number): number => {
-  if (left === right) return left; // 存疑
   let i = left;
-  let j = right;
+  let j = right; // 注意不是right-1
   const base = nums[right]; // 以最右边的元素为基数
   while (i < j) {
     while (i < j && nums[i] <= base) i++; // 找到左边比基数大的位置
@@ -50,5 +49,6 @@ const quick = (nums: number[], left: number, right: number): void => {
  * @param {number} nums
  */
 export const quickSort = (nums: number[]): void => {
+  if (nums.length <= 1) return;
   quick(nums, 0, nums.length - 1);
 };
