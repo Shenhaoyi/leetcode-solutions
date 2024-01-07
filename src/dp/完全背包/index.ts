@@ -5,17 +5,6 @@ export function unboundedKnapsack(weight: number[], value: number[], bagWeight: 
   // dp[i][j]表示i个物品，最大重量为j时的最优值(下标0无用)
   const dp = new Array(bagWeight + 1).fill(0); // 空间优化版
 
-  // 初始化第一行，放在下面一起，第0行、0列已经初始化过了
-  // for (let j = 1; j <= bagWeight; j++) {
-  //   const currentWeight = weight[0];
-  //   const currentValue = value[0];
-  //   if (j >= currentWeight) {
-  //     dp[j] = dp[j - currentWeight] + currentValue; // 注意这里，多出来的空间还能让当前物品再放！
-  //   } else {
-  //     dp[j] = 0;
-  //   }
-  // }
-
   for (let i = 1; i <= n; i++) {
     for (let j = 1; j <= bagWeight; j++) {
       // 必须正序
