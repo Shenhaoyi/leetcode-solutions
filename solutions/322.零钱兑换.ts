@@ -16,7 +16,7 @@ function coinChange(coins: number[], amount: number): number {
   const n = amount;
   const MAX = amount + 1;
   const dp = new Array(n + 1).fill(0); // dp[j] 面额j所需最少的硬币
-  // 第一列，没有空间，那最小就是0；第一行，从1开始，有空间，但是没有东西能放满，则初始化为一个较大的数字
+  // 第0列，没有空间，那最小就是0；第0行，从第1列开始，有空间，但是此时没有硬币，不可能放满，则初始化为一个较大的数字
   for (let j = 1; j < n + 1; j++) {
     dp[j] = MAX;
   }
