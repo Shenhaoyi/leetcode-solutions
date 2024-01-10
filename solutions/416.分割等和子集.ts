@@ -28,3 +28,33 @@ function canPartition(nums: number[]): boolean {
   return dp[m] === m;
 }
 // @lc code=end
+
+function canPartition2(nums: number[]): boolean {
+  // 2、记忆化搜索，每个元素选和不选进行分叉，利用记忆和越界进行剪枝
+  const sum = nums.reduce((curr, prev) => prev + curr, 0);
+  if (sum % 2) return false;
+  const target = sum / 2;
+  const memo = new Map();
+
+  const dfs = (curSum: number, i: number): boolean => {
+    // curSum是当前累加和，i是指针
+    if (i == nums.length || curSum > target) {
+      // 越界
+      return false;
+    }
+    if (curSum == target) {
+      // 递归的出口
+      return true;
+    }
+    const key = curSum + '&' + i; // 描述一个问题的key
+    if (memo.has(key)) {
+      // 如果memo中有对应的缓存值，直接使用
+      return memo.get(key);
+    }
+    const res = dfs(curSum + nums[i], i + 1) || dfs(curSum, i + 1);
+    memo.set(key, res); // 计算的结果存入memo
+    return res;
+  };
+
+  return dfs(0, 0); // 递归的入口，当前和为0，指针为0
+}
