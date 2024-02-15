@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// @ts-ignore
 function isPalindrome(s: string): boolean {
   // 考虑到字符数为单数和双数的情况就行
   const length = s.length;

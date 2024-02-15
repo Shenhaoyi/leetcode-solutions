@@ -17,6 +17,7 @@
  * }
  */
 
+// @ts-ignore
 function isPalindrome(head: ListNode | null): boolean {
   let result = true;
   if (!head!.next) return result;
