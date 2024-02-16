@@ -12,10 +12,9 @@ function isPalindrome(s: string): boolean {
   if (length <= 1) return true;
   let left = 0;
   let right = length - 1;
-  const isLetterOrNumber = (character: string) => {
-    if (character.match(/[a-zA-Z0-9]/)) return true;
-    return false;
-  };
+const isLetterOrNumber = (s: string) => {
+  return /[a-zA-Z0-9]/.test(s);
+};
   while (left <= right) {
     if (!isLetterOrNumber(s[left])) {
       left++;
