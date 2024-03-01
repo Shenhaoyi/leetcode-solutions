@@ -18,12 +18,13 @@ function calculateMinimumHP(dungeon: number[][]): number {
 
   const m = dungeon.length,
     n = dungeon[0].length;
+  // 每一格都是大于 0 的
   const dp = Array.from({ length: m + 1 }, () => Array.from({ length: n + 1 }, () => 0));
   // 最后一行，一列是用来防止边界问题的，因为会被用来求最小值，所以这只为 Infinity 不会影响计算结果
-  for (let i = m; i >= 0; i--) {
+  for (let i = 0; i < m + 1; i++) {
     dp[i][n] = Infinity;
   }
-  for (let j = n; j >= 0; j--) {
+  for (let j = 0; j < n + 1; j++) {
     dp[m][j] = Infinity;
   }
 
@@ -31,18 +32,19 @@ function calculateMinimumHP(dungeon: number[][]): number {
     for (let j = n - 1; j >= 0; j--) {
       const current = dungeon[i][j];
       if (i === m - 1 && j === n - 1) {
-        dp[i][j] = current < 0 ? -current + 1 : 1;
-      } else {
-        // 后面最少需要血量，>=1
-        const after = Math.min(dp[i][j + 1], dp[i + 1][j]);
-        if (current > 0) {
-          // 当前加血：可以覆盖后面的用血
-          const before = after - current;
-          dp[i][j] = before > 0 ? before : 1;
+        // 【注意】：最右下的一次需要手动初始化
+        dp[i][j] = current >= 0 ? 1 : -current + 1;
+        continue;
+      }
+      const minCost = Math.min(dp[i][j + 1], dp[i + 1][j]);
+      if (current > 0) {
+        if (current >= minCost) {
+          dp[i][j] = 1;
         } else {
-          // 当前扣血或不动：确保扣完后面够用就行
-          dp[i][j] = after - current;
+          dp[i][j] = minCost - current;
         }
+      } else {
+        dp[i][j] = minCost - current;
       }
     }
   }
