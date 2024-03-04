@@ -14,7 +14,7 @@ function canPartition(nums: number[]): boolean {
   const m = sum / 2;
   const dp = new Array(m + 1).fill(0); // 空间优化，只用一行
 
-  for (let i = 1; i < n; i++) {
+  for (let i = 1; i <= n; i++) {
     const current = nums[i - 1];
     // 倒序
     for (let j = m; j >= 1; j--) {
