@@ -39,7 +39,7 @@ function calculateMinimumHP(dungeon: number[][]): number {
       const minCost = Math.min(dp[i][j + 1], dp[i + 1][j]);
       if (current > 0) {
         if (current >= minCost) {
-          dp[i][j] = 1;
+          dp[i][j] = 1; // 完全足够覆盖，则初始只要还有生命值就行
         } else {
           dp[i][j] = minCost - current;
         }
