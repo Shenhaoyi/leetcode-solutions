@@ -48,12 +48,12 @@ function reorderList(head: ListNode | null): void {
   mergeLinkedList(head, rightHead);
 }
 const reverseLinkedList1 = (head: ListNode | null) => {
-  if (!head?.next) return head;
+  if (!head) return head;
+  let next = head.next;
   let current = head;
-  let next: ListNode | null = head.next;
   current.next = null;
   while (next) {
-    const temp: ListNode | null = next.next;
+    const temp = next.next;
     next.next = current;
     current = next;
     next = temp;
