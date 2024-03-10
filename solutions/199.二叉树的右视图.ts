@@ -23,13 +23,13 @@ function rightSideView(root: TreeNode | null): number[] {
   // 层序遍历，拿到每一层最后一个元素即可
   const result: number[] = [];
   if (!root) return result;
-  const stack = [root];
-  while (stack.length) {
-    const { length } = stack;
+  const queue = [root];
+  while (queue.length) {
+    const { length } = queue;
     for (let i = 0; i < length; i++) {
-      const current = stack.shift() as TreeNode;
-      current.left && stack.push(current.left);
-      current.right && stack.push(current.right);
+      const current = queue.shift() as TreeNode;
+      current.left && queue.push(current.left);
+      current.right && queue.push(current.right);
       if (i === length - 1) {
         result.push(current.val);
       }
