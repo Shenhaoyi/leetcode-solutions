@@ -8,6 +8,7 @@
 /**
  Do not return anything, modify nums1 in-place instead.
  */
+// @ts-ignore
 function merge(nums1: number[], m: number, nums2: number[], n: number): void {
   /*
     解法：倒序双指针：不用担心会有覆盖问题，因为 0 的个数等于 n

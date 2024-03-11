@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// @ts-ignore
 function merge(intervals: number[][]): number[][] {
   /*
     题解：https://leetcode.cn/problems/merge-intervals/solutions/487031/shou-hua-tu-jie-56he-bing-qu-jian-by-xiao_ben_zhu
