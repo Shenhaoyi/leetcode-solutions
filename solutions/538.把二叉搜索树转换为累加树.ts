@@ -21,23 +21,7 @@
 
 function convertBST(root: TreeNode | null): TreeNode | null {
   // 降序遍历=>即反中序遍历
-  // 1、迭代
-  // const stack = [];
-  // let sumValue = 0;
-  // let current = root;
-  // while (stack.length || current) {
-  //   while (current) {
-  //     stack.push(current);
-  //     current = current.right;
-  //   }
-  //   current = stack.pop() as TreeNode;
-  //   const currValue = current.val;
-  //   current.val += sumValue;
-  //   sumValue += currValue;
-  //   current = current.left;
-  // }
-  // return root;
-  // 2、递归
+  // 1、递归
   let sumValue = 0;
   const help = (node: TreeNode | null) => {
     if (!node) return;
@@ -51,3 +35,22 @@ function convertBST(root: TreeNode | null): TreeNode | null {
   return root;
 }
 // @lc code=end
+
+function convertBST2(root: TreeNode | null): TreeNode | null {
+  // 2、迭代
+  const stack = [];
+  let sumValue = 0;
+  let current = root;
+  while (stack.length || current) {
+    while (current) {
+      stack.push(current);
+      current = current.right;
+    }
+    current = stack.pop() as TreeNode;
+    const currValue = current.val;
+    current.val += sumValue;
+    sumValue += currValue;
+    current = current.left;
+  }
+  return root;
+}
