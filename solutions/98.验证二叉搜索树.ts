@@ -20,31 +20,12 @@
  */
 
 function isValidBST(root: TreeNode | null): boolean {
-  // 递归判断左右子树是不对的，不要想简单了！
-  // 利用中序遍历升序的特性来判断
-  // 1、迭代遍历
-  // if (!root) return false;
-  // let result = true;
-  // const stack = [];
-  // let current: TreeNode | null = root;
-  // let preValue = -Infinity;
-  // while (stack.length || current) {
-  //   while (current) {
-  //     stack.push(current);
-  //     current = current.left;
-  //   }
-  //   current = stack.pop() as TreeNode;
-  //   if (preValue >= current.val) {
-  //     // 与上一个访问节点的值作比较
-  //     result = false;
-  //     break;
-  //   } else {
-  //     preValue = current.val;
-  //     current = current.right;
-  //   }
-  // }
-  // return result;
-  // 2、递归遍历
+  /*
+    递归判断左右子树是不对的，不要想简单了！
+    利用中序遍历升序的特性来判断
+
+    1、递归遍历
+  */
   if (!root) return false;
   let result = true;
   let preValue = -Infinity;
@@ -64,3 +45,28 @@ function isValidBST(root: TreeNode | null): boolean {
   return result;
 }
 // @lc code=end
+
+function isValidBST2(root: TreeNode | null): boolean {
+  // 2、迭代遍历
+  if (!root) return false;
+  let result = true;
+  const stack = [];
+  let current: TreeNode | null = root;
+  let preValue = -Infinity;
+  while (stack.length || current) {
+    while (current) {
+      stack.push(current);
+      current = current.left;
+    }
+    current = stack.pop() as TreeNode;
+    if (preValue >= current.val) {
+      // 与上一个访问节点的值作比较
+      result = false;
+      break;
+    } else {
+      preValue = current.val;
+      current = current.right;
+    }
+  }
+  return result;
+}
