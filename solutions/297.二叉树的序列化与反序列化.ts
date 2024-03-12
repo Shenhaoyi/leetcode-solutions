@@ -19,9 +19,11 @@
  * }
  */
 
-/* 
+/*
   参考题解：https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/solutions/290289/shou-hui-tu-jie-gei-chu-dfshe-bfsliang-chong-jie-f/
-  先序遍历序列化，再按照先序遍历进行反序列化
+  先序遍历序列化，
+  反序列化的时候，按照先序遍历再重新连接起来
+    buildTree 函数输出节点的顺序就是先序遍历的顺序，只要依次接上就行
 */
 const NULL = 'null';
 /*
@@ -29,10 +31,18 @@ const NULL = 'null';
  */
 function serialize(root: TreeNode | null): string {
   // 先序遍历
-  if (!root) return NULL;
-  const left = serialize(root.left);
-  const right = serialize(root.right);
-  return [root.val, left, right].join(',');
+  const valList: string[] = [];
+  const help = (node: TreeNode | null) => {
+    if (!node) {
+      valList.push(NULL);
+    } else {
+      valList.push(String(node.val));
+      help(node.left);
+      help(node.right);
+    }
+  };
+  help(root);
+  return valList.join(',');
 }
 
 /*
