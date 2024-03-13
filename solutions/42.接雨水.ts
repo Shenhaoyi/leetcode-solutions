@@ -6,6 +6,34 @@
 
 // @lc code=start
 function trap(height: number[]): number {
+  // 2、双指针，空间复杂度优化到 O(1)
+  const { length } = height;
+  let result = 0;
+  let left = 1;
+  let right = length - 2;
+  let prevMax = height[0]; // 当前格子左边最高的高度
+  let nextMax = height[length - 1]; // 当前格子右边最高的高度
+  while (left <= right) {
+    if (prevMax < nextMax) {
+      // 在左边取格子计算
+      const current = height[left];
+      if (current < prevMax) result += prevMax - current;
+      left++;
+      prevMax = Math.max(prevMax, current);
+    } else {
+      // 在右边取格子计算
+      const current = height[right];
+      if (current < nextMax) result += nextMax - current;
+      right--;
+      nextMax = Math.max(nextMax, current);
+    }
+  }
+  return result;
+}
+// @lc code=end
+
+function trap2(height: number[]): number {
+  // 1、3次循环，时间和空间复杂度都是 O(N)
   const { length } = height;
   let result = 0;
   const prevMaxHeightList = new Array(length).fill(0);
@@ -39,4 +67,3 @@ function trap(height: number[]): number {
   }
   return result;
 }
-// @lc code=end
