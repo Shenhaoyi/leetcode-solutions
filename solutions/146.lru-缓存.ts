@@ -5,6 +5,48 @@
  */
 
 // @lc code=start
+/*
+  利用 map 巧解：https://leetcode.cn/problems/lru-cache/solutions/841200/mapjie-fa-jian-dan-yi-dong-by-bella0929-8lpn
+*/
+class LRUCache {
+  capacity: number;
+  map = new Map<number, number>();
+  constructor(capacity: number) {
+    this.capacity = capacity;
+  }
+  get(key: number) {
+    const value = this.map.get(key);
+    if (value === undefined) {
+      return -1;
+    } else {
+      this.map.delete(key);
+      this.map.set(key, value);
+      return value;
+    }
+  }
+
+  put(key: number, value: number) {
+    const oldValue = this.map.get(key);
+    if (oldValue !== undefined) {
+      this.map.delete(key);
+    } else {
+      if (this.map.size === this.capacity) {
+        // 删除第一个，即最久未使用的
+        // 迭代器.next() 拿到的是 { value: unknown, done: boolean }
+        this.map.delete(this.map.keys().next().value);
+      }
+    }
+    this.map.set(key, value);
+  }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+// @lc code=end
 
 // 参考https://leetcode.cn/problems/lru-cache/solutions/260362/bu-yong-yu-yan-nei-jian-de-map-gua-dang-feng-zhuan/
 // 双向链表才能实现O(1)的删除和添加，比如删除时能拿到前后，直接连上
@@ -78,7 +120,7 @@ interface Data {
   value: number;
 }
 
-class LRUCache {
+class LRUCache2 {
   capacity: number;
   list = new DoublyLinkedList2<Data>();
   map = new Map<number, ListNode3<Data>>();
@@ -121,11 +163,3 @@ class LRUCache {
     }
   }
 }
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * var obj = new LRUCache(capacity)
- * var param_1 = obj.get(key)
- * obj.put(key,value)
- */
-// @lc code=end
