@@ -6,6 +6,29 @@
 
 // @lc code=start
 function lengthOfLIS(nums: number[]): number {
+  /*
+    贪心+二分
+    具体见：obsidian://advanced-uri?vault=shen&filepath=zz_%25E6%2589%25BE%25E5%25B7%25A5%25E4%25BD%259C%25E8%25AE%25A1%25E5%2588%2592%252F%25E9%259D%25A2%25E7%25BB%258F%252F%25E7%25AE%2597%25E6%25B3%2595%25E4%25B8%258E%25E6%2595%25B0%25E6%258D%25AE%25E7%25BB%2593%25E6%259E%2584%252F%25E5%2588%25B7%25E9%25A2%2598%25E8%25AE%25B0%25E5%25BD%2595%252F%25E5%258A%25A8%25E6%2580%2581%25E8%25A7%2584%25E5%2588%2592%252F%25E6%259C%2580%25E9%2595%25BF%25E9%2580%2592%25E5%25A2%259E%25E5%25AD%2590%25E5%25BA%258F%25E5%2588%2597.md
+  */
+  const tails = new Array(nums.length).fill(0);
+  let result = 0;
+  for (const num of nums) {
+    let i = 0;
+    let j = result;
+    // 二分查找，找到 >=num的位置
+    while (i < j) {
+      const m = Math.floor((i + j) / 2);
+      if (tails[m] < num) i = m + 1;
+      else j = m;
+    }
+    tails[i] = num;
+    if (result === j) result++;
+  }
+  return result;
+}
+// @lc code=end
+
+function lengthOfLIS_DP(nums: number[]): number {
   //
   /*
     思考：
@@ -15,7 +38,6 @@ function lengthOfLIS(nums: number[]): number {
       https://leetcode.cn/problems/longest-increasing-subsequence/solutions/24173/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2
       dp[i] 表示【以 nums[i] 为结尾的子序列】的最长长度
       每次 dp[i] 的计算需要遍历所有之前的状态
-    贪心+二分看得头疼，后面有空再研究
   */
   const { length } = nums;
   const dp = Array.from({ length }, () => 0);
@@ -31,4 +53,3 @@ function lengthOfLIS(nums: number[]): number {
   }
   return Math.max(...dp);
 }
-// @lc code=end
