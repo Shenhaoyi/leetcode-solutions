@@ -1,8 +1,8 @@
 // gpt：https://chat.openai.com/share/43e32e86-1a3c-4915-961c-c0e0d7207ba3
-class ListNode2<T> {
+class ListNode<T> {
   data: T;
-  prev: ListNode2<T> | null;
-  next: ListNode2<T> | null;
+  prev: ListNode<T> | null;
+  next: ListNode<T> | null;
 
   constructor(data: T) {
     this.data = data;
@@ -11,9 +11,9 @@ class ListNode2<T> {
   }
 }
 
-class DoublyLinkedList<T> {
-  private head: ListNode2<T> | null;
-  private tail: ListNode2<T> | null;
+export default class DoublyLinkedList<T> {
+  private head: ListNode<T> | null;
+  private tail: ListNode<T> | null;
 
   constructor() {
     this.head = null;
@@ -26,7 +26,7 @@ class DoublyLinkedList<T> {
 
   // 插到尾部
   append(data: T) {
-    const newNode = new ListNode2(data);
+    const newNode = new ListNode(data);
 
     if (this.isEmpty()) {
       this.head = newNode;
@@ -40,7 +40,7 @@ class DoublyLinkedList<T> {
 
   // 插到头部
   prepend(data: T) {
-    const newNode = new ListNode2(data);
+    const newNode = new ListNode(data);
 
     if (this.isEmpty()) {
       this.head = newNode;
@@ -57,6 +57,12 @@ class DoublyLinkedList<T> {
 
     while (current !== null) {
       if (current.data === data) {
+        /*
+          A<=>B<=>C
+             ||
+             \/
+            A<=>C
+         */
         if (current.prev) {
           current.prev.next = current.next;
         } else {
@@ -77,22 +83,23 @@ class DoublyLinkedList<T> {
 
   print() {
     let current = this.head;
-
+    const result = Array<T>();
     while (current !== null) {
-      console.log(current.data);
+      result.push(current.data);
       current = current.next;
     }
+    return result;
+  }
+
+  reversePrint() {
+    let current = this.tail;
+    const result = Array<T>();
+    while (current !== null) {
+      result.push(current.data);
+      current = current.prev;
+    }
+    return result;
   }
 }
 
-// 示例用法
-const list = new DoublyLinkedList<number>();
-list.append(1);
-list.append(2);
-list.append(3);
-list.prepend(0);
 
-list.print(); // 输出：0 1 2 3
-
-list.delete(1);
-list.print(); // 输出：0 2 3
