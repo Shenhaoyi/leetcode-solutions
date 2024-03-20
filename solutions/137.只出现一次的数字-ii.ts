@@ -26,3 +26,5 @@ function singleNumber(nums: number[]): number {
   return result;
 }
 // @lc code=end
+
+export default {};

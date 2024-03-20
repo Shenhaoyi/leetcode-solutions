@@ -10,3 +10,5 @@ function singleNumber(nums: number[]): number {
   return nums.reduce((prev, current) => prev ^ current, 0);
 }
 // @lc code=end
+
+export default {};
