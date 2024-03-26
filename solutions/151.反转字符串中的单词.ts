@@ -34,13 +34,11 @@ function reverseWords(s: string): string {
 // @lc code=end
 
 // 利用字符串方法
-function trim(s: string) {
-  return s.replace(/^\s+|\s+$/g, '');
-}
+
 function reverseWords2(s: string): string {
   const list = s.split(' ');
   return list
-    .map((item) => trim(item))
+    .map((item) => item.trim)
     .filter(Boolean)
     .reverse()
     .join(' ');
