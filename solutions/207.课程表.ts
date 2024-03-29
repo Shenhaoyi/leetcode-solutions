@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-/* 
+/*
   参考k神题解：https://leetcode.cn/problems/course-schedule/solutions/18806/course-schedule-tuo-bu-pai-xu-bfsdfsliang-chong-fa/
 */
 function canFinish(numCourses: number, prerequisites: number[][]): boolean {
@@ -13,7 +13,6 @@ function canFinish(numCourses: number, prerequisites: number[][]): boolean {
   // 2、有向图，判断有向图中是否有环，prerequisites就是邻接表
   // 一般情况下，这个图是非连通图，所以遍历的时候要从所有没有入度的节点开始
   // 思路：BFS实现，将所有没有入度的节点都删掉，并删除这个节点与另外节点的边，最后剩下的就是一个环
-  const { length } = prerequisites;
   if (!length || numCourses === 1) return true;
   const inDegree = new Array(numCourses).fill(0); // 入度表
   const adjacency = Array.from({ length: numCourses }, () => [] as number[]); // 邻接表，存当前节点指向的节点
