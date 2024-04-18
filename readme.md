@@ -1,4 +1,3 @@
-本项目代码均使用ts编写
 # solutions目录
 [leetcode题解](./solutions/readme.md)
 # src目录
