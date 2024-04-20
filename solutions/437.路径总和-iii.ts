@@ -18,7 +18,7 @@
  *     }
  * }
  */
-/* 
+/*
   注意点：
   1.路径从上到下，不需要始于头，结于尾；
   2.有负数！！！！！！！！！！！！！！！
@@ -30,26 +30,22 @@
 // @ts-ignore
 function pathSum(root: TreeNode | null, targetSum: number): number {
   let result = 0;
-  const backTrack = (state: TreeNode[], node: TreeNode | null) => {
-    if (!node) return;
-    // 判断当前
-    const { length } = state;
-    let sum = node.val;
-    // 节点本身等于 target 的情况
-    if (sum === targetSum) result += 1;
-    for (let i = length - 1; i >= 0; i--) {
-      sum += state[i].val;
-      if (sum === targetSum) result += 1;
+  if (!root) return result;
+  const backTrack = (state: number[], currentNode: TreeNode) => {
+    // 已经确保 currentNode 不为 null
+    let sum = 0;
+    for (let i = state.length - 1; i >= 0; i--) {
+      sum += state[i];
+      if (sum === targetSum) result++;
     }
-    // 继续往下探索
-    const childList = [node.left, node.right].filter(Boolean) as TreeNode[];
-    for (let child of childList) {
-      state.push(node);
-      backTrack(state, child);
+    const choices = [currentNode.left, currentNode.right].filter(Boolean) as TreeNode[];
+    for (let choice of choices) {
+      state.push(choice.val);
+      backTrack(state, choice);
       state.pop();
     }
   };
-  backTrack([], root);
+  backTrack([root.val], root);
   return result;
 }
 // @lc code=end
