@@ -23,9 +23,9 @@ function reverseBetween(head: ListNode | null, left: number, right: number): Lis
   */
 
   // 设置 dummyNode 是这一类问题的一般做法（不用考虑 left是否等于 1，dummy_node.next一定是头节点，妙啊）
-  const dummy_node = new ListNode(-1);
-  dummy_node.next = head;
-  let pre = dummy_node;
+  const dummyNode = new ListNode(-1);
+  dummyNode.next = head;
+  let pre = dummyNode;
   // 找到 left 左边一位
   for (let i = 1; i < left; i++) {
     pre = pre.next!;
@@ -47,7 +47,7 @@ function reverseBetween(head: ListNode | null, left: number, right: number): Lis
     workNode!.next = pre.next;
     pre.next = workNode;
   }
-  return dummy_node.next;
+  return dummyNode.next;
 }
 // @lc code=end
 
