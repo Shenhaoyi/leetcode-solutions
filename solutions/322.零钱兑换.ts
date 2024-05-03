@@ -43,3 +43,24 @@ function coinChange(coins: number[], amount: number): number {
   return dp[n] === MAX ? -1 : dp[n];
 }
 // @lc code=end
+// 空间未优化版
+function coinChange2(coins: number[], amount: number): number {
+  const { length } = coins;
+  const dp = Array.from({ length: length + 1 }, () => new Array(amount + 1).fill(0));
+  for (let i = 1; i <= amount; i++) {
+    dp[0][i] = amount + 1;
+  }
+  for (let i = 1; i < length + 1; i++) {
+    const current = coins[i - 1];
+    for (let j = 0; j <= amount; j++) {
+      if (current < j) {
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - current] + 1);
+      } else if (current === j) {
+        dp[i][j] = 1;
+      } else {
+        dp[i][j] = dp[i - 1][j];
+      }
+    }
+  }
+  return dp[length][amount] === amount + 1 ? -1 : dp[length][amount];
+}
