@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 devDependencies:
+  vite:
+    specifier: ^5.2.11
+    version: 5.2.11(@types/node@20.12.12)
   vitest:
     specifier: ^0.34.5
     version: 0.34.6
