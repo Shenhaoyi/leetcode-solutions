@@ -40,3 +40,20 @@ function merge(nums1: number[], m: number, nums2: number[], n: number): void {
   }
 }
 // @lc code=end
+// 代码精简版
+function merge2(nums1: number[], m: number, nums2: number[], n: number): void {
+  let p1 = m - 1;
+  let p2 = n - 1;
+  let i = m + n - 1;
+  while (i > -1) {
+    const current1 = p1 >= 0 ? nums1[p1] : -Infinity;
+    const current2 = p2 >= 0 ? nums2[p2] : -Infinity;
+    if (current1 > current2) {
+      p1--;
+    } else {
+      p2--;
+    }
+    nums1[i] = Math.max(current1, current2);
+    i--;
+  }
+}
