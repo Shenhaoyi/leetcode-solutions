@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-/* 
+/*
   题解：https://leetcode.cn/problems/longest-palindromic-substring/solutions/7792/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/
 */
 function longestPalindrome(s: string): string {
@@ -16,13 +16,10 @@ function longestPalindrome(s: string): string {
   const length = s.length;
   let resultRange = [0, 0];
   const centerSpread = (l: number, r: number) => {
-    while (l > 0 && r < length - 1) {
-      if (s[l] === s[r]) {
-        l--;
-        r++;
-      } else {
-        break;
-      }
+    // 到达边界或者不相等时，跳出循环
+    while (s[l] === s[r] && l > 0 && r < length - 1) {
+      l--;
+      r++;
     }
     /* 最后一次移动指针导致不相等 */
     if (s[l] !== s[r]) {
@@ -33,11 +30,11 @@ function longestPalindrome(s: string): string {
       resultRange = [l, r];
     }
   };
-  for (let i = 0; i < length; i++) {
+  for (let i = 1; i < length; i++) {
     centerSpread(i, i); // 奇数
-    if (s[i] === s[i + 1]) centerSpread(i, i + 1); // 偶数，自身和右边就行（和左边的话，上一次循环中已经处理了）
+    if (s[i - 1] === s[i]) centerSpread(i - 1, i); // 偶数，自身和左边就行
   }
-  const result = s.slice(resultRange[0], resultRange[1] + 1);
+  const result = s.slice(resultRange[0], resultRange[1] + 1); // 注意+1，因为不包含右边界
   return result;
 }
 // @lc code=end
