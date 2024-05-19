@@ -24,6 +24,7 @@ function minSubArrayLen(target: number, nums: number[]): number {
       result = Math.min(currentLength, result);
       // 移动左指针
       currentSum -= nums[l];
+      if (l === r) r++; // 确保 l<=r
       l++;
     } else {
       // 移动右指针
