@@ -44,3 +44,20 @@ function moveZeroes(nums: number[]): void {
   }
 }
 // @lc code=end
+
+// 快慢指针的 while 写法
+function moveZeroes2(nums: number[]): void {
+  let slow = 0;
+  let fast = 0;
+  const { length } = nums;
+  while (fast < length) {
+    const current = nums[fast];
+    if (current !== 0) {
+      if (fast !== slow) {
+        [nums[slow], nums[fast]] = [nums[fast], nums[slow]];
+      }
+      slow++;
+    }
+    fast++;
+  }
+}
