@@ -37,7 +37,7 @@ function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
       const mergedHead = merge2Lists(WIPLists.pop()!, WIPLists.pop()!);
       newWIPLists.push(mergedHead);
     }
-    newWIPLists.push(...WIPLists);
+    newWIPLists.push(...WIPLists); // 两两合并，所以会剩余 0 或者 1 条链表
     WIPLists = newWIPLists;
   }
   return WIPLists[0];
