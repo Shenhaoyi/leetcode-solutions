@@ -25,16 +25,22 @@
 function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
   // 左右都找到target，则是最近的公共祖先
   if (!root) return root;
-  if (root === p || root === q) return root; // 找到了
-  // 后序遍历，这样才能在回溯过程中判断左右
-  const left = lowestCommonAncestor(root.left, p, q);
-  const right = lowestCommonAncestor(root.right, p, q);
-  if (!left) return right;
-  else if (!right) return left;
-  else {
-    // 左边右边分别有target，则当前就是结果！
-    return root;
-  }
+  const help = (node: TreeNode | null): TreeNode | null => {
+    if (!node) return node;
+    else if (node === p || node === q) return node; // 找到了
+    else {
+      // 后序遍历，这样才能在回溯过程中判断左右
+      const left = help(node.left);
+      const right = help(node.right);
+      if (!left) return right;
+      else if (!right) return left;
+      else {
+        // 左边右边分别有target，则当前就是结果！
+        return node;
+      }
+    }
+  };
+  return help(root);
 }
 // @lc code=end
 
