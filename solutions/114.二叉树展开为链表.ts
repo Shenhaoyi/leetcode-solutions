@@ -31,6 +31,10 @@ function flatten(root: TreeNode | null): void {
       /*
         找到左子树的最右边的，也就是反中序遍历的第一步(但是这里明显是已经转成链表了，直接.right到底就行)
           TODO:确认下这段代码放在 flatten 的前面和后面为什么又区别，真正二叉树先序遍历的最后一个元素也是.right到底找到的啊？
+          回答：下面这个例子，就不能通过.right访问到先序遍历最后一个节点！
+              1
+           2     3
+                4
       */
       let leftTail = root.left;
       while (leftTail && leftTail.right) {
